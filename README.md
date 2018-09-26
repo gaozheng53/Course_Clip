@@ -21,12 +21,11 @@
 	3. View the comments with user’s username, content, time.     ✅ 
 	
 # Test 
-visit: `http://localhost:8080/Course_Clip/login.jsp`
+visit: `http://localhost:8080/OOAD-Project/login.jsp`
 
 database file in root directory `database`.
 	
 	
 	
-# todo
-invalid filter
+
 
