@@ -1,0 +1,2 @@
+INSERT INTO OOAD.course (course_id, course_name, course_number, description, track, comment_number) VALUES (1, 'Object-Oriented Analysis and Design', '6359', ':)', '', '2');
+INSERT INTO OOAD.course (course_id, course_name, course_number, description, track, comment_number) VALUES (2, 'Statistical Methods for Data Science', '6313', 'blabla', 'DS', '0');
