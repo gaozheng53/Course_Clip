@@ -100,6 +100,7 @@
 
 	</form>
 
+<p>${message}</p>
 </body>
 
 </html>

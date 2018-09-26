@@ -9,29 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.CourseDAO;
-import po.Course;
+import dao.CommentDAO;
+import dao.UserDAO;
+import po.Comment;
+import po.User;
 
 /**
- * Servlet implementation class homepageServlet
+ * Servlet implementation class UserInfo
  */
-@WebServlet("/homepage.do")
-public class HomepageServlet extends HttpServlet {
+@WebServlet("/userinfo.do")
+public class UserInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
+       
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 登录状态验证  
-//		if(request.getSession().getAttribute("username") == "" || request.getSession().getAttribute("username") == null) {
-//			request.getRequestDispatcher("login.jsp").forward(request, response);
-//			return;
-//		}
-		List<Course> couseList = CourseDAO.displayCourses();
-		request.setAttribute("couseList", couseList);
-		request.getRequestDispatcher("homepage.jsp").forward(request, response);
+		User user = UserDAO.getUserInfo(Long.parseLong(request.getParameter("id")));
+		List<Comment> comments = CommentDAO.CommentListById(Long.parseLong(request.getParameter("id")));
+		if(user == null || comments == null) {
+			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
+			return;
+		}
+		request.setAttribute("user", user);
+		request.setAttribute("commentList", comments);
+		request.getRequestDispatcher("profile.jsp").forward(request, response);
 	}
 
 	/**

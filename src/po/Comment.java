@@ -1,16 +1,30 @@
 package po;
 
 import java.util.Date;
+import java.util.List;
 
 public class Comment {
-	Long commentId;
-	Long courseId;
-	Long userId;
-	String username;
-	String content;
-	String attachment;
-	Date createTime;
+	private Long commentId;
+	private Long courseId;
+	private String courseName;
+	private Long userId;
+	private String username;
+	private String content;
+	private Date createTime;
+	private List<File> fileList;
 	
+	public List<File> getFileList() {
+		return fileList;
+	}
+	public void setFileList(List<File> fileList) {
+		this.fileList = fileList;
+	}
+	public String getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
 	public Long getCommentId() {
 		return commentId;
 	}
@@ -42,12 +56,7 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getAttachment() {
-		return attachment;
-	}
-	public void setAttachment(String attachment) {
-		this.attachment = attachment;
-	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}

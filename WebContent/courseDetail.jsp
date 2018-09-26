@@ -23,7 +23,7 @@
 		<tr>
 			<th>username</th>
 			<th>content</th>
-			<th>attachment</th>
+			<th>file list</th>
 			<th>create time</th>
 		</tr>
 		<c:forEach items="${commentList}" var="comment">
@@ -31,8 +31,15 @@
 			<tr>
 				<td>${comment.username}</td>
 				<td>${comment.content}</td>
-				<td>${comment.attachment}</td>
+				<td>
+				<table>
+						<c:forEach items="${comment.fileList}" var="file">
+								<td>${file.fileName}</td>
+						</c:forEach>
+					</table>
+				 </td>			 
 				<td>${comment.createTime}</td>
+				
 			</tr>
 			<br>
 		</c:forEach>

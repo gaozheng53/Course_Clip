@@ -13,8 +13,8 @@
 	4. Link to specific course detail page     ✅
 	5. Log out    ✅
 4. Profile Page
-	1. Display the info of user
-	2. Display the comments history list.
+	1. Display the info of user    ✅
+	2. Display the comments history list.    ✅
 5. Course Page
 	1. Display the brief description of course.     ✅
 	2. Display the list of professors who taught the certain course and link to their personal page.
@@ -26,3 +26,7 @@ visit: `http://localhost:8080/Course_Clip/login.jsp`
 database file in root directory `database`.
 	
 	
+	
+# todo
+invalid filter
+

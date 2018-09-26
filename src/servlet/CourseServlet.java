@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.CourseDAO;
+import dao.FileDAO;
 import po.Comment;
 import po.Course;
+import po.File;
 
 /**
  * Servlet implementation class CourseServlet
@@ -33,11 +35,9 @@ public class CourseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		System.out.println("get class"+ request.getParameter("id"));
 		Course course = CourseDAO.getCourseDetail(Long.parseLong(request.getParameter("id")));
 		List<Comment> comments = CourseDAO.getCommentsList(Long.parseLong(request.getParameter("id")));
-		if(course == null) {
+		if(course == null || comments == null) {
 			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
 		}
 		request.setAttribute("course", course);

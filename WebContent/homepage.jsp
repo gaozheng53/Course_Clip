@@ -16,8 +16,9 @@
 <script type="text/javascript">
 
   function logout(){
-  window.open("logout.do","_self");
+  	window.open("logout.do","_self");
   }
+
 
 </script>
 
@@ -27,7 +28,7 @@
 
 	<h1>登录成功</h1>
 
-	欢迎${username}!
+	欢迎<a href="userinfo.do?id=${user.userId}">${username}</a>!
 	<br>
 	<br>
 
@@ -35,6 +36,9 @@
 		<input type="submit" value="退出" />
 	</form>
 
+	<br>
+	<!-- <input type="button" name="track" value="Data Science" onclick="javascript:sortByTrack('ds\')"/>
+ -->
 	<br>
 	<br>
 	<table border="1">

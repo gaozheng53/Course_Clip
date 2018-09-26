@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.CourseDAO;
 import dao.UserDAO;
 import po.Course;
+import po.User;
 
 /*
 
@@ -34,10 +35,12 @@ public class LoginServlet extends HttpServlet {
 		req.setCharacterEncoding("utf-8");// 设置编码格式为utf-8
 		String username = req.getParameter("username");// 从jsp中获取usernmae
 		String password = req.getParameter("password");// 从jsp中获取password
-		if (UserDAO.checkLogin(username, password)) { // dao层中判断，如果为true，跳转到欢迎界面
+		User user =  UserDAO.checkLogin(username, password);
+		if (user!=null) { // 通过验证
 			req.getSession().setAttribute("username", username);
+			req.setAttribute("user", user);
 			req.getRequestDispatcher("/homepage.do").forward(req, resp);
-		} else { // 如果为false，跳转到登录界面，并返回错误信息.
+		} else { // 验证失败
 			req.setAttribute("inf", "你的账号或密码错误，请重新登录");
 			req.getRequestDispatcher("login.jsp").forward(req, resp);
 		}

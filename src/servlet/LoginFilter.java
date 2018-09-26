@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class LoginFilter
  */
-@WebFilter("/*")
+
 public class LoginFilter implements Filter {
 
     @Override

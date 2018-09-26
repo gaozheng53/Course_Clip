@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import po.User;
 import util.DBHelper;
 
 /* dao层处理业务逻辑，里面有两个方法，
@@ -15,7 +16,8 @@ public class UserDAO {
 	public static PreparedStatement ps = null;
 	public static ResultSet rs = null;
 
-	public static boolean checkLogin(String username, String password) {// 检查登录，这里传入的两个参数分别是从jsp传过来的账号和密码
+	public static User checkLogin(String username, String password) {// 检查登录，这里传入的两个参数分别是从jsp传过来的账号和密码
+
 		con = DBHelper.getConnection();// 通过DBHelper得到Connection
 		String sql = "select * from user where username = ?";// 查询语句，先把username设置为？，后面在赋值
 		try {
@@ -23,16 +25,18 @@ public class UserDAO {
 			ps.setString(1, username);// 赋值
 			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet,这个就是我们数据库里面的user
 			if (rs.next()) {
-
 				String pwd = rs.getString("password");// 找到数据类里面user所对应的passwrod
 				if (pwd.equals(password)) {// 把我们从数据库中找出来的password和从jsp中传过来的passwrod比较
-					return true; // ture代表验证成功
-				} else {
-					return false;// false代表验证失败
-				}
-			} else {
-				return false;
-			}
+					User user = new User();
+					//验证成功
+					user.setUserId(rs.getLong("user_id"));
+					user.setUsername(username);
+					user.setRole(rs.getInt("role"));
+					user.setEmail(rs.getString("email"));
+					return user;
+				} 
+				
+			} 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -56,7 +60,7 @@ public class UserDAO {
 				ps = null;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public static String register(String username, String password,String email) {// 向数据库注册一个新的用户
@@ -70,7 +74,7 @@ public class UserDAO {
 		}
 
 		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		// 暂时先自动创建role=0  以后update
+	
 		String sql = "insert into user(username, password, email,role) values (?,?,?,0)";// 这个语句是向表单插入一个user,username和password先设置为？,后面赋值
 		try {
 			ps = con.prepareStatement(sql);
@@ -201,5 +205,49 @@ public class UserDAO {
 			}
 	        return false;
 	    }
+	 
+	 public static User getUserInfo(Long id) {
+		 	User user = new User();
+			con = DBHelper.getConnection();// 通过DBHelper得到Connection
+			String sql = "select * from user where user_id = ?";// 查询语句，先把username设置为？，后面在赋值
+			try {
+				ps = con.prepareStatement(sql);
+				ps.setLong(1, id);// 赋值
+				rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet,这个就是我们数据库里面的user
+				if (rs.next()) {
+					user.setUserId(id);
+					user.setEmail(rs.getString("email"));
+					user.setRole(rs.getInt("role"));
+					user.setUsername(rs.getString("username"));
+				} else {
+					return null;
+				}
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			} finally { // 这里是一些操作数据库之后的一些关闭操作
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+					}
+					rs = null;
+				}
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+					}
+					ps = null;
+				}
+			}
+			return user;
+		}
+
 
 }
+

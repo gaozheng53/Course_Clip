@@ -126,9 +126,9 @@ public class CourseDAO {
 				comment.setCommentId(rs.getLong("comment_id"));
 				comment.setCourseId(rs.getLong("course_id"));
 				comment.setContent(rs.getString("content"));
-				comment.setAttachment(rs.getString("attachment"));
 				comment.setUsername(rs.getString("username"));
 				comment.setCreateTime(rs.getTimestamp("create_time"));
+				comment.setFileList(FileDAO.getFileList(rs.getLong("comment_id")));
                 list.add(comment); 
 			}
 

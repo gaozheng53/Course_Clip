@@ -1,11 +1,12 @@
 package po;
 
 public class User {
-	Long userId;
-	String username;
-	String password;
-	String email;
-	Integer role;
+	private Long userId;
+	private String username;
+	private String password;
+	private String email;
+	private Integer role;
+	
 	public Long getUserId() {
 		return userId;
 	}
