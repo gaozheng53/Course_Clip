@@ -19,3 +19,4 @@ INSERT INTO OOAD.user (user_id, username, password, email, role) VALUES (11, 'gg
 INSERT INTO OOAD.user (user_id, username, password, email, role) VALUES (12, 'abc', '11111111', 'jsdkfs@utdallas.edu', 0);
 INSERT INTO OOAD.user (user_id, username, password, email, role) VALUES (13, 'Tianrou', '88888888', 'txc123344@utdallas.edu', 1);
 INSERT INTO OOAD.user (user_id, username, password, email, role) VALUES (14, 'LittleSheep', '11223344', 'lxs@utdallas.edu', 0);
+INSERT INTO OOAD.user (user_id, username, password, email, role) VALUES (15, 'Hai', '11111111', 'dsfg@utdallas.edu', 0);
