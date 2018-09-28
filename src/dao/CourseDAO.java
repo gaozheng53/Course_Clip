@@ -159,4 +159,52 @@ public class CourseDAO {
 		return list;
 	}
 	
+	
+	public static List<Course> displayCoursebyTrack(String trackname) {
+		List<Course> list = new LinkedList<>();
+		con = DBHelper.getConnection();// 通过DBHelper得到Connection
+		String sql = "select * from course where track = ?";// 查询语句，先把username设置为？，后面在赋值
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, trackname);// 赋值
+			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			while(rs.next()) { 
+				Course course=new Course();  
+				course.setId(rs.getLong("course_id"));  
+				course.setName(rs.getString("course_name"));  
+				course.setDescription(rs.getString("description")); 
+				course.setNumber(rs.getLong("course_number")); 
+				course.setCommentNum(rs.getLong("comment_number"));
+				course.setTrack(rs.getString("track"));  
+                list.add(course);  
+			}
+
+			return list;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { // 这里是一些操作数据库之后的一些关闭操作
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return list;
+	}	
+
+	
 }
