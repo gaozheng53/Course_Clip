@@ -26,7 +26,7 @@ $( document ).ready(function() {
          type : "GET",
          url : "track.do",
          data : {"name": option},
-         dataType:'json',
+         dataType:'text',
          success:function(data)
          {      	 
              alert(data);
