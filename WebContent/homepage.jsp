@@ -42,8 +42,6 @@ $( document ).ready(function() {
 	        		 "<td>" + data[i].track + "</td>" +  
 	        		 "<td>" + data[i].commentNum + "</td>" + 
 	        		 "</tr>";
-	        		  console.log(i);
-	        		 console.log(data[i]);
 	        	 }
 	        	 $("#courseTable").append(str);
         	 }
