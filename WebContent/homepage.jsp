@@ -26,14 +26,32 @@ $( document ).ready(function() {
          type : "GET",
          url : "track.do",
          data : {"name": option},
-         dataType:'text',
+         dataType:'json',
          success:function(data)
-         {      	 
-             alert(data);
+         { 
+        	 $("#courseTable .tableContent").remove();
+        	 console.log(data);
+        	 if(data.course0!= "notfound"){       	 
+	        	 var str = "";
+	        	 for(var i in data){
+	        		 str += "<tr class = 'tableContent'>" + 
+	        		 "<td>" + data[i].id + "</td>" + 
+	        		 "<td><a href='course.do?id=" + data[i].id+ "'>" + data[i].name + "</a></td>" + 
+	        		 "<td>" + data[i].number + "</td>" + 
+	        		 "<td>" + data[i].description + "</td>" + 
+	        		 "<td>" + data[i].track + "</td>" +  
+	        		 "<td>" + data[i].commentNum + "</td>" + 
+	        		 "</tr>";
+	        		  console.log(i);
+	        		 console.log(data[i]);
+	        	 }
+	        	 $("#courseTable").append(str);
+        	 }
+        	 
          },
          error:function(data)
          {      	 
-             alert("fail");
+        	 $("#courseTable .tableContent").remove();
          }
      });
    });
@@ -67,7 +85,8 @@ $( document ).ready(function() {
 	</select>
 	<br>
 	<br>
-	<table border="1">
+	
+	<table border="1" id="courseTable">
 		<tr>
 			<td>id</td>
 			<td>course.name</td>
@@ -76,9 +95,10 @@ $( document ).ready(function() {
 			<td>track</td>
 			<td>comment number</td>
 		</tr>
+		
 		<c:forEach items="${couseList}" var="course">
 
-			<tr>
+			<tr class="tableContent">
 				<td>${course.id}</td>
 				<td><a href="course.do?id=${course.id}">${course.name}</a></td>
 				<td>${course.number}</td>
@@ -89,6 +109,7 @@ $( document ).ready(function() {
 			<br>
 		</c:forEach>
 	</table>
+	
 </body>
 
 </html>

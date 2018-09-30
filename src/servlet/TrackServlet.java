@@ -2,8 +2,10 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,23 +33,29 @@ public class TrackServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String trackname = request.getParameter("name");
-		List<Course> courseListbyTrack = CourseDAO.displayCoursebyTrack(trackname);		
+		List<Course> courseListbyTrack = new ArrayList<>();
+		courseListbyTrack = CourseDAO.displayCoursebyTrack(trackname);		
 		if(courseListbyTrack.size() > 0){
-			log(""+courseListbyTrack.get(0).getName()); 
-			String text = "msg";
-			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(text);
-			//String json = new Gson().toJson(courseListbyTrack);
-			//response.getWriter().write(json);
+			response.setContentType("application/json; charset=utf-8");
+			JSONObject courseList = new JSONObject();
+			for(int i = 0; i < courseListbyTrack.size(); i++){
+				JSONObject course = new JSONObject(courseListbyTrack.get(i));
+				String key = "course" + i;
+				courseList.put(key, course);
+			}
+			PrintWriter out = response.getWriter();	
+			out.print(courseList);
+			out.flush();		
+			out.close();
+
 		}
 		else{
-//			response.setContentType("text/plain");
-//			response.setCharacterEncoding("UTF-8");
-//			response.getWriter().write("notfound");
-			response.setCharacterEncoding("utf-8");		
-			PrintWriter out = response.getWriter();		
-			out.print("xixi");		
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/json; charset=utf-8");	
+			PrintWriter out = response.getWriter();	
+			JSONObject result = new JSONObject("{'course0':'notfound'}");
+			out.print(result);		
 			out.flush();		
 			out.close();
 		}
