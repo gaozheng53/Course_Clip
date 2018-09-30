@@ -33,8 +33,15 @@ public class TrackServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String trackname = request.getParameter("name");
+		log(trackname);
 		List<Course> courseListbyTrack = new ArrayList<>();
-		courseListbyTrack = CourseDAO.displayCoursebyTrack(trackname);		
+		if(trackname.equals("ALL")){
+			courseListbyTrack = CourseDAO.displayCourses();
+		}
+		else{
+			courseListbyTrack = CourseDAO.displayCoursebyTrack(trackname);	
+		}
+			
 		if(courseListbyTrack.size() > 0){
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json; charset=utf-8");

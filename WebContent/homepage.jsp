@@ -30,8 +30,7 @@ $( document ).ready(function() {
          success:function(data)
          { 
         	 $("#courseTable .tableContent").remove();
-        	 console.log(data);
-        	 if(data.course0!= "notfound"){       	 
+        	 if(data.course0 != "notfound"){       	 
 	        	 var str = "";
 	        	 for(var i in data){
 	        		 str += "<tr class = 'tableContent'>" + 
@@ -70,9 +69,9 @@ $( document ).ready(function() {
 	</form>
 
 	<br>
-	
+	Search course by track:
 	<select id="selectTrack">
-	  <option value ="ALL">Please select your track</option>
+	  <option value ="ALL">All Courses</option>
 	  <option value ="DS">Data Sciences</option>
 	  <option value ="IA">Information Assurance</option>
 	  <option value="IS">Intelligent Systems</option>
