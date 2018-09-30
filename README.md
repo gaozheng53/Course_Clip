@@ -9,7 +9,7 @@
 3. Home Page
 	1. Display the list of courses sorted by NO. of course	   ✅ 
 	2. Display the comments number of this certain course   ✅
-	3. Filter courses by category such as degree track  (ajax)
+	3. Filter courses by category such as degree track  (ajax) ✅
 	4. Link to specific course detail page     ✅
 	5. Log out    ✅
 4. Profile Page
