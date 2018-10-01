@@ -22,7 +22,7 @@ import po.File;
 @WebServlet("/course.do")
 public class CourseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,12 +35,15 @@ public class CourseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Course course = CourseDAO.getCourseDetail(Long.parseLong(request.getParameter("id")));
+		long course_id = Long.parseLong(request.getParameter("id"));
+		Course course = CourseDAO.getCourseDetail(course_id);
+		List<String[]> professorList = CourseDAO.getProfessorList(course_id);
 		List<Comment> comments = CourseDAO.getCommentsList(Long.parseLong(request.getParameter("id")));
 		if(course == null || comments == null) {
 			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
 		}
 		request.setAttribute("course", course);
+		request.setAttribute("professorList", professorList);
 		request.setAttribute("commentList", comments);
 		request.getRequestDispatcher("courseDetail.jsp").forward(request, response);
 	}

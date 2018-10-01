@@ -29,8 +29,8 @@ public class HomepageServlet extends HttpServlet {
 //			request.getRequestDispatcher("login.jsp").forward(request, response);
 //			return;
 //		}
-		List<Course> couseList = CourseDAO.displayCourses();
-		request.setAttribute("couseList", couseList);
+		List<Course> courseList = CourseDAO.displayCourses();
+		request.setAttribute("courseList", courseList);
 		request.getRequestDispatcher("homepage.jsp").forward(request, response);
 	}
 
