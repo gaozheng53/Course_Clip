@@ -17,7 +17,7 @@
 	2. Display the comments history list.    ✅
 5. Course Page
 	1. Display the brief description of course.     ✅
-	2. Display the list of professors who taught the certain course and link to their personal page.
+	2. Display the list of professors who taught the certain course and link to their personal page.✅
 	3. View the comments with user’s username, content, time.     ✅ 
 	
 # Test 
