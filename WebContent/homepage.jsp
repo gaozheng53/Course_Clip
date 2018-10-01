@@ -30,7 +30,7 @@ $( document ).ready(function() {
          success:function(data)
          { 
         	 $("#courseTable .tableContent").remove();
-        	 if(data.course0 != "notfound"){       	 
+        	 if (data.course0 != "notfound"){       	 
 	        	 var str = "";
 	        	 for(var i in data){
 	        		 str += "<tr class = 'tableContent'>" + 
@@ -93,7 +93,7 @@ $( document ).ready(function() {
 			<td>comment number</td>
 		</tr>
 		
-		<c:forEach items="${couseList}" var="course">
+		<c:forEach items="${courseList}" var="course">
 
 			<tr class="tableContent">
 				<td>${course.id}</td>
