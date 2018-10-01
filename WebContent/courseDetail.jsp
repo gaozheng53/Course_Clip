@@ -15,6 +15,10 @@
 	<br>
 	<p>course name = ${course.name}</p>
 	<p>course description = ${course.description}</p>
+	<p>course lecturer =</p>
+	<c:forEach items="${professorList}" var="professor">
+		<p><a href="${professor[1]}">${professor[0]}</a></p>
+	</c:forEach>
 
 
 	<br>
