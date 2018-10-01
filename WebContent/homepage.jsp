@@ -58,14 +58,14 @@ $( document ).ready(function() {
 
 <body>
 
-	<h1>登录成功</h1>
+	<h1>Login Successfully</h1>
 
-	欢迎<a href="userinfo.do?id=${user.userId}">${username}</a>!
+	Welcome <a href="userinfo.do?id=${user.userId}">${username}</a>!
 	<br>
 	<br>
 
 	<form method="post" action="logout.do">
-		<input type="submit" value="退出" />
+		<input type="submit" value="Log out" />
 	</form>
 
 	<br>

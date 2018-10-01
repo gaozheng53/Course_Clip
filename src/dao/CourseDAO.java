@@ -20,11 +20,11 @@ public class CourseDAO {
 	
 	public static List<Course> displayCourses() {
 		List<Course> res = new LinkedList<>(); 
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		String sql = "select * from course order by course_number";// 查询语句，先把username设置为？，后面在赋值
+		con = DBHelper.getConnection();
+		String sql = "select * from course order by course_number";
 		try {
 			ps = con.prepareStatement(sql);
-			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			rs = ps.executeQuery();
 			int i = 0;
 			while (rs.next()) {
 				Course course=new Course();  
@@ -38,7 +38,7 @@ public class CourseDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 这里是一些操作数据库之后的一些关闭操作
+		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
@@ -61,12 +61,12 @@ public class CourseDAO {
 
 	public static Course getCourseDetail(Long courseId) {
 		Course course = new Course(); 
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		String sql = "select * from course where course_id = ?";// 查询语句，先把username设置为？，后面在赋值
+		con = DBHelper.getConnection();
+		String sql = "select * from course where course_id = ?";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setLong(1, courseId);// 赋值
-			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			ps.setLong(1, courseId);
+			rs = ps.executeQuery();
 			if (rs.next()) {  
 				course.setId(rs.getLong("course_id"));  
 				course.setName(rs.getString("course_name"));  
@@ -84,7 +84,7 @@ public class CourseDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 这里是一些操作数据库之后的一些关闭操作
+		} finally { 
 			if (rs != null) {
 				try {
 					rs.close();
@@ -109,12 +109,12 @@ public class CourseDAO {
 	
 	public static List<Comment> getCommentsList(Long courseId) {
 		List<Comment> list = new LinkedList<>();
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		String sql = "select * from comment where course_id = ?";// 查询语句，先把username设置为？，后面在赋值
+		con = DBHelper.getConnection();
+		String sql = "select * from comment where course_id = ?";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setLong(1, courseId);// 赋值
-			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			ps.setLong(1, courseId);
+			rs = ps.executeQuery();
 			while(rs.next()) { 
 				Comment comment = new Comment(); 
 				comment.setUserId(rs.getLong("user_id"));
@@ -131,7 +131,7 @@ public class CourseDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 这里是一些操作数据库之后的一些关闭操作
+		} finally { 
 			if (rs != null) {
 				try {
 					rs.close();
@@ -157,12 +157,12 @@ public class CourseDAO {
 	
 	public static List<Course> displayCoursebyTrack(String trackname) {
 		List<Course> list = new LinkedList<>();
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		String sql = "select * from course where track = ?";// 查询语句，先把username设置为？，后面在赋值
+		con = DBHelper.getConnection();
+		String sql = "select * from course where track = ?";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setString(1, trackname);// 赋值
-			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			ps.setString(1, trackname);
+			rs = ps.executeQuery();
 			while(rs.next()) { 
 				Course course=new Course();  
 				course.setId(rs.getLong("course_id"));  
@@ -178,7 +178,7 @@ public class CourseDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 这里是一些操作数据库之后的一些关闭操作
+		} finally { 
 			if (rs != null) {
 				try {
 					rs.close();
@@ -203,19 +203,19 @@ public class CourseDAO {
 
 	public static List<String[]> getProfessorList(Long courseId) {
 		List<String[]> list = new LinkedList<>();
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		String sql = "select * from teach where course_id = ?";// 查询语句，先把username设置为？，后面在赋值
+		con = DBHelper.getConnection();
+		String sql = "select * from teach where course_id = ?";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setLong(1, courseId);// 赋值
-			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			ps.setLong(1, courseId);
+			rs = ps.executeQuery();
 			while(rs.next()) {
 				String[] professor = new String[] {rs.getString("professor_name"), rs.getString("professor_link")};
                 list.add(professor); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 这里是一些操作数据库之后的一些关闭操作
+		} finally { 
 			if (rs != null) {
 				try {
 					rs.close();

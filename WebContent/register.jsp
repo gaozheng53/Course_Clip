@@ -9,14 +9,14 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Register</title>
+<title>Registration</title>
 
 </head>
 
 <body>
 
 	<script>
-		/*  js 做username,password,email非空，密码复杂性判断，email必须为utd邮箱，重复输入密码 */
+
 		
 		function validate() {
 			var username = document.getElementById("username");
@@ -34,8 +34,8 @@
 			if (password.length == 0) {
 				alert("password cannot be null");
 				return false;
-			}else if(password.length < 8){   // todo 密码复杂性验证
-				alert("password length should be at least 8");
+			}else if(password.length < 6){   
+				alert("password length should be at least 6");
 				return false;
 			}else if(password != passwordRep){
 				alert("Please enter the same password twice");
@@ -44,7 +44,7 @@
 			if (email.length == 0) {
 				alert("email cannot be null");
 				return false;
-			}else if(email.substring(email.length - 13) != "@utdallas.edu"){   // todo UTD身份校验
+			}else if(email.substring(email.length - 13) != "@utdallas.edu"){  
 				alert("email should be UTD email");
 				return false;
 			}
@@ -59,7 +59,7 @@
 
 			<tr>
 
-				<td><label for="username">用户名：</label></td>
+				<td><label for="username">Username</label></td>
 
 				<td><input type="text" name="username" id="username" /></td>
 
@@ -67,21 +67,21 @@
 
 			<tr>
 
-				<td><label for="password">密码：</label></td>
+				<td><label for="password">Password</label></td>
 
 				<td><input type="password" name="password" id="password" /></td>
 
 			</tr>
 			<tr>
 
-				<td><label for="passwordRep">再次输入密码：</label></td>
+				<td><label for="passwordRep">Confirm Password</label></td>
 
 				<td><input type="password" name="passwordRep" id="passwordRep" /></td>
 
 			</tr>
 			<tr>
 
-				<td><label for="email">邮箱：</label></td>
+				<td><label for="email">Email：</label></td>
 
 				<td><input type="text" name="email" id="email" /></td>
 
@@ -90,8 +90,8 @@
 			<tr>
 
 				<td colspan="2" align="center">
-				<input type="submit" value="注册" onclick="return validate()" /> 
-				<input type="reset" value="重置" />
+				<input type="submit" value="Submit" onclick="return validate()" /> 
+				<input type="reset" value="Reset" />
 				</td>
 
 			</tr>

@@ -16,12 +16,12 @@ public class FileDAO {
 	
 	public static List<File> getFileList(Long commentId){
 		List<File> res = new LinkedList<>();
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		String sql = "select * from file where comment_id = ? order by create_time DESC";// 查询语句，先把username设置为？，后面在赋值
+		con = DBHelper.getConnection();
+		String sql = "select * from file where comment_id = ? order by create_time DESC";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setLong(1, commentId);// 赋值
-			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			ps.setLong(1, commentId);
+			rs = ps.executeQuery();
 			while (rs.next()) {
 				File file = new File();
 				file.setCommentId(commentId);
@@ -33,7 +33,7 @@ public class FileDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { // 这里是一些操作数据库之后的一些关闭操作
+		} finally { 
 			if (rs != null) {
 				try {
 					rs.close();

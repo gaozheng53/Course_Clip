@@ -20,24 +20,23 @@ import dao.UserDAO;
 public class RegisterServlet extends HttpServlet{
 @Override
 
- //doGet方法自动跳转到doPost()方法
+
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-this.doPost(req, resp);   // avoid error 405
+this.doPost(req, resp);   // automatically jump -- avoid error 405
 }
    @Override
 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-  req.setCharacterEncoding("utf-8");//设置编码格式为utf-8
-  String username=req.getParameter("username");//从注册界面获得username
-  String password=req.getParameter("password");//从注册界面获得password
-  String email=req.getParameter("email");//从注册界面获得password
-  String registerRes = UserDAO.register(username, password,email);            //dao层中向数据库添加数据
+  req.setCharacterEncoding("utf-8");
+  String username=req.getParameter("username");//get username from register page
+  String password=req.getParameter("password");//get password from register page
+  String email=req.getParameter("email");////get email from register page
+  String registerRes = UserDAO.register(username, password,email);      // insert to db     
   if("Register success" == registerRes) {
 	  // Register successfully
 	  System.out.println("Register successfully");
-	  req.getRequestDispatcher("login.jsp").forward(req, resp); //重新跳转到登录界面
+	  req.getRequestDispatcher("login.jsp").forward(req, resp); //forward to login.jsp
   }else {
-	  // 处理register返回的错误信息给前端
-	  // email/username has been used
+	  // return error message to request
 	  req.setAttribute("message", registerRes); 
 	  req.getRequestDispatcher("register.jsp").forward(req, resp);
   }

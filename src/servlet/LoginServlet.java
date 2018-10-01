@@ -14,34 +14,30 @@ import dao.UserDAO;
 import po.Course;
 import po.User;
 
-/*
 
-登录界面是从登录界面获得username和password，再通过dao层中的checkLogin()来判断是否登录
-
-*/
 @WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {
 	@Override
 
-	// doGet方法自动跳转到doPost()方法
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doPost(req, resp);
 	}
 
 	@Override
 
-	// doGet方法判断从jsp传过来的username和password是否和数据库中的对应，如果对应，则跳转到欢迎界面，如果不对应，则返回登录界面
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");// 设置编码格式为utf-8
-		String username = req.getParameter("username");// 从jsp中获取usernmae
-		String password = req.getParameter("password");// 从jsp中获取password
+		req.setCharacterEncoding("utf-8");
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
 		User user =  UserDAO.checkLogin(username, password);
-		if (user!=null) { // 通过验证
+		if (user!=null) { // check successfully
 			req.getSession().setAttribute("username", username);
 			req.setAttribute("user", user);
 			req.getRequestDispatcher("/homepage.do").forward(req, resp);
-		} else { // 验证失败
-			req.setAttribute("inf", "你的账号或密码错误，请重新登录");
+		} else { // check failed
+			req.setAttribute("inf", "Username or password doesn't match our record, please enter again.");
 			req.getRequestDispatcher("login.jsp").forward(req, resp);
 		}
 

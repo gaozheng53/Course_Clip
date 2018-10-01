@@ -22,7 +22,7 @@
 
 <body>
 
-<h2>成功退出！</h2>
+<h2>Log out Successfully！</h2>
 
 
 <br><br>

@@ -30,14 +30,14 @@
 </head>
 
 <body>
-
+<h1>Login</h1>
 <form action="login.do" method="post">
 
   <table  border="1">
 
   <tr>
 
-  <td><label for="username">用户：</label></td>
+  <td><label for="username">Username</label></td>
 
   <td><input type="text" name="username" id="username"/></td>
 
@@ -45,7 +45,7 @@
 
    <tr>
 
-  <td><label for="password">密码：</label></td>
+  <td><label for="password">Password</label></td>
 
   <td><input type="password" name="password" id="password"/></td>
 
@@ -55,9 +55,9 @@
 
   <td colspan="2" align="center">
 
-   <input type="submit" value="登录"/>
+   <input type="submit" value="Login"/>
 
-   <input type="button" value="注册" onclick=register() />
+   <input type="button" value="Registration" onclick=register() />
 
   </td>
 

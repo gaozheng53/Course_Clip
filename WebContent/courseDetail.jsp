@@ -10,14 +10,14 @@
 <title>Course Detail</title>
 </head>
 <body>
-	Course Detail
+	<h1>Course Detail</h1>
 	<br>
 	<br>
-	<p>course name = ${course.name}</p>
-	<p>course description = ${course.description}</p>
-	<p>course lecturer =</p>
+	<p>Course Name: ${course.name}</p>
+	<p>Course Description: ${course.description}</p>
+	<p>Course Lecturer: </p>
 	<c:forEach items="${professorList}" var="professor">
-		<p><a href="${professor[1]}">${professor[0]}</a></p>
+		<p>- <a href="${professor[1]}">${professor[0]}</a></p>
 	</c:forEach>
 
 
@@ -38,7 +38,7 @@
 				<td>
 				<table>
 						<c:forEach items="${comment.fileList}" var="file">
-								<td>${file.fileName}</td>
+								<td>[${file.fileName}]</td>
 						</c:forEach>
 					</table>
 				 </td>			 

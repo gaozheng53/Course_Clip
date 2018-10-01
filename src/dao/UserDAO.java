@@ -8,27 +8,26 @@ import java.sql.SQLException;
 import po.User;
 import util.DBHelper;
 
-/* dao层处理业务逻辑，里面有两个方法，
-  一个是检查登录，一个是向数据库注册一个用户*/
+/* 1. check login success or not，2. register*/
 public class UserDAO {
 
 	public static Connection con = null;
 	public static PreparedStatement ps = null;
 	public static ResultSet rs = null;
 
-	public static User checkLogin(String username, String password) {// 检查登录，这里传入的两个参数分别是从jsp传过来的账号和密码
+	public static User checkLogin(String username, String password) {
 
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
-		String sql = "select * from user where username = ?";// 查询语句，先把username设置为？，后面在赋值
+		con = DBHelper.getConnection();// get connection
+		String sql = "select * from user where username = ?";// query
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setString(1, username);// 赋值
-			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet,这个就是我们数据库里面的user
+			ps.setString(1, username);// set variable to '?'
+			rs = ps.executeQuery();// execute query，return ResultSet
 			if (rs.next()) {
-				String pwd = rs.getString("password");// 找到数据类里面user所对应的passwrod
-				if (pwd.equals(password)) {// 把我们从数据库中找出来的password和从jsp中传过来的passwrod比较
+				String pwd = rs.getString("password");
+				if (pwd.equals(password)) {
+					// if match successfully
 					User user = new User();
-					//验证成功
 					user.setUserId(rs.getLong("user_id"));
 					user.setUsername(username);
 					user.setRole(rs.getInt("role"));
@@ -40,7 +39,8 @@ public class UserDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		} finally { // 这里是一些操作数据库之后的一些关闭操作
+		} finally { 
+			// close connection
 			if (rs != null) {
 				try {
 					rs.close();
@@ -63,7 +63,7 @@ public class UserDAO {
 		return null;
 	}
 
-	public static String register(String username, String password,String email) {// 向数据库注册一个新的用户
+	public static String register(String username, String password,String email) {
 		UserDAO dao = new UserDAO();
 		System.out.println("start validate");
 		if(!dao.userIsExist(username)) {
@@ -73,15 +73,15 @@ public class UserDAO {
 			return "Email already be used";
 		}
 
-		con = DBHelper.getConnection();// 通过DBHelper得到Connection
+		con = DBHelper.getConnection();
 	
-		String sql = "insert into user(username, password, email,role) values (?,?,?,0)";// 这个语句是向表单插入一个user,username和password先设置为？,后面赋值
+		String sql = "insert into user(username, password, email,role) values (?,?,?,0)";
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setString(1, username);// 给username赋值
-			ps.setString(2, password);// 给password赋值
-			ps.setString(3, email);// 给email赋值
-			int b = ps.executeUpdate();// 执行插入语句，并返回一个int值，大于0表示添加成功，小于0表示添加失败.
+			ps.setString(1, username);  // set username
+			ps.setString(2, password); // set password
+			ps.setString(3, email);  // set email
+			int b = ps.executeUpdate();// return > 0: insert success. others:insert fail.
 			if (b > 0) {
 				return "Register success";
 			} else {
@@ -114,30 +114,23 @@ public class UserDAO {
 	}
 	
 	
-	 public boolean userIsExist(String username){
-	        // 获取数据库连接Connection对象
+	 public boolean userIsExist(String username){	      
 	        Connection conn = DBHelper.getConnection();
-	        // 根据指定用户名查询用户信息
 	        String sql = "select * from user where username = ?";
 	        try {
-	            // 获取PreparedStatement对象
 	            PreparedStatement ps = conn.prepareStatement(sql);
-	            // 对用户对象属性赋值
 	            ps.setString(1, username);
-	            // 执行查询获取结果集
 	            ResultSet rs = ps.executeQuery();
-	            // 判断结果集是否有效
+	            // if already has this username
 	            if(!rs.next()){
-	                // 如果无效则证明此用户名可用
+	                // not exist this username in db
 	                return true;
 	            }
-	            // 释放此 ResultSet 对象的数据库和 JDBC 资源
 	            rs.close();
-	            // 释放此 PreparedStatement 对象的数据库和 JDBC 资源
 	            ps.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	        }finally { // 这里是一些操作数据库之后的一些关闭操作
+	        }finally {
 				if (rs != null) {
 					try {
 						rs.close();
@@ -161,29 +154,22 @@ public class UserDAO {
 	    }
 	 	
 	 public boolean emailIsExist(String email){
-	        // 获取数据库连接Connection对象
 	        Connection conn = DBHelper.getConnection();
-	        // 根据指定用户名查询用户信息
 	        String sql = "select * from user where email = ?";
 	        try {
-	            // 获取PreparedStatement对象
 	            PreparedStatement ps = conn.prepareStatement(sql);
-	            // 对用户对象属性赋值
 	            ps.setString(1, email);
-	            // 执行查询获取结果集
 	            ResultSet rs = ps.executeQuery();
-	            // 判断结果集是否有效
+	            // if already has this email
 	            if(!rs.next()){
-	                // 如果无效则证明此用户名可用
+	                // not exist this email in db
 	                return true;
 	            }
-	            // 释放此 ResultSet 对象的数据库和 JDBC 资源
 	            rs.close();
-	            // 释放此 PreparedStatement 对象的数据库和 JDBC 资源
 	            ps.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	        }finally { // 这里是一些操作数据库之后的一些关闭操作
+	        }finally { 
 				if (rs != null) {
 					try {
 						rs.close();
@@ -208,12 +194,12 @@ public class UserDAO {
 	 
 	 public static User getUserInfo(Long id) {
 		 	User user = new User();
-			con = DBHelper.getConnection();// 通过DBHelper得到Connection
-			String sql = "select * from user where user_id = ?";// 查询语句，先把username设置为？，后面在赋值
+			con = DBHelper.getConnection();
+			String sql = "select * from user where user_id = ?";
 			try {
 				ps = con.prepareStatement(sql);
-				ps.setLong(1, id);// 赋值
-				rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet,这个就是我们数据库里面的user
+				ps.setLong(1, id);
+				rs = ps.executeQuery();
 				if (rs.next()) {
 					user.setUserId(id);
 					user.setEmail(rs.getString("email"));
@@ -225,7 +211,7 @@ public class UserDAO {
 			} catch (SQLException e) {
 
 				e.printStackTrace();
-			} finally { // 这里是一些操作数据库之后的一些关闭操作
+			} finally { 
 				if (rs != null) {
 					try {
 						rs.close();
