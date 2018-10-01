@@ -25,20 +25,17 @@ public class CourseDAO {
 		try {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			int i = 0;
 			while (rs.next()) {
 				Course course=new Course();  
 				course.setId(rs.getLong("course_id"));  
-				course.setName(rs.getString("course_name"));  
+				course.setName(rs.getString("course_name"));
 				course.setDescription(rs.getString("description")); 
 				course.setNumber(rs.getLong("course_number")); 
 				course.setCommentNum(rs.getLong("comment_number"));
 				course.setTrack(rs.getString("track"));  
-                res.add(course);  
-                
+                res.add(course);
 			}
-
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally { // 这里是一些操作数据库之后的一些关闭操作
@@ -46,7 +43,6 @@ public class CourseDAO {
 				try {
 					rs.close();
 				} catch (SQLException e) {
-
 					e.printStackTrace();
 				}
 				rs = null;
@@ -55,7 +51,6 @@ public class CourseDAO {
 				try {
 					ps.close();
 				} catch (SQLException e) {
-
 					e.printStackTrace();
 				}
 				ps = null;
@@ -63,7 +58,7 @@ public class CourseDAO {
 		}
 		return res;
 	}
-	
+
 	public static Course getCourseDetail(Long courseId) {
 		Course course = new Course(); 
 		con = DBHelper.getConnection();// 通过DBHelper得到Connection
@@ -78,7 +73,7 @@ public class CourseDAO {
 				course.setDescription(rs.getString("description")); 
 				course.setNumber(rs.getLong("course_number")); 
 				course.setCommentNum(rs.getLong("comment_number"));
-				course.setTrack(rs.getString("track"));  
+				course.setTrack(rs.getString("track"));
                 return course; 
 			}else {
 				// no such course
@@ -206,5 +201,39 @@ public class CourseDAO {
 		return list;
 	}	
 
+	public static List<String[]> getProfessorList(Long courseId) {
+		List<String[]> list = new LinkedList<>();
+		con = DBHelper.getConnection();// 通过DBHelper得到Connection
+		String sql = "select * from teach where course_id = ?";// 查询语句，先把username设置为？，后面在赋值
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, courseId);// 赋值
+			rs = ps.executeQuery();// 执行查询语句，返回一个ResultSet
+			while(rs.next()) {
+				String[] professor = new String[] {rs.getString("professor_name"), rs.getString("professor_link")};
+                list.add(professor); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { // 这里是一些操作数据库之后的一些关闭操作
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return list;
+	}
 	
 }
