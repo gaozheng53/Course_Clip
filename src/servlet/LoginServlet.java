@@ -32,8 +32,10 @@ public class LoginServlet extends HttpServlet {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		User user =  UserDAO.checkLogin(username, password);
+
 		if (user!=null) { // check successfully
 			req.getSession().setAttribute("username", username);
+			req.getSession().setAttribute("userid", user.getUserId());
 			req.setAttribute("user", user);
 			req.getRequestDispatcher("/homepage.do").forward(req, resp);
 		} else { // check failed

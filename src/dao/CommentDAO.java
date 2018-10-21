@@ -61,4 +61,42 @@ public class CommentDAO {
 		}
 		return res;
 	}
+	
+	public static void AddComment(Long courseid, Long userid, String content, String username, String createtime, String coursename) {
+		con = DBHelper.getConnection();
+		String sql = "insert into comment (course_id, user_id, content, username, create_time, coursename) values(?,?,?,?,?,?) ";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, courseid);
+			ps.setLong(2, userid);
+			ps.setString(3, content);
+			ps.setString(4, username);
+			ps.setString(5, createtime);
+			ps.setString(6, coursename);
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		
+	}
 }

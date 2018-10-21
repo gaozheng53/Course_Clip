@@ -48,5 +48,15 @@
 			<br>
 		</c:forEach>
 	</table>
+	<p>Add Your Comment</p>
+	<form action = "addcomment.do" name="commentForm" method="post">
+    	<textarea id="contentText" class="text" cols="70" rows ="8" name="contentText"></textarea>
+    	<input type="hidden" value="${course.id}" name = "courseId">
+    	<input type="hidden" value="${course.name}" name = "courseName">
+    	
+		<br>
+		
+   		<input type="submit" value="Submit" class="submitButton">
+	</form>
 </body>
 </html>
