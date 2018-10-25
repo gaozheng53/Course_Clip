@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,7 +15,7 @@ import dao.CourseDAO;
 import dao.FileDAO;
 import po.Comment;
 import po.Course;
-import po.File;
+import po.UploadDetail;
 
 /**
  * Servlet implementation class CourseServlet
@@ -39,12 +41,31 @@ public class CourseServlet extends HttpServlet {
 		Course course = CourseDAO.getCourseDetail(course_id);
 		List<String[]> professorList = CourseDAO.getProfessorList(course_id);
 		List<Comment> comments = CourseDAO.getCommentsList(Long.parseLong(request.getParameter("id")));
+		
+		//display all the files
+		String applicationPath = getServletContext().getRealPath("");
+		String UPLOAD_DIR = "uploadfile";		
+		String uploadFilePath = applicationPath + UPLOAD_DIR;
+		File fileUploadDirectory = new File(uploadFilePath);
+
+		UploadDetail details = null;
+		File[] allFiles = fileUploadDirectory.listFiles();
+		List<UploadDetail> fileList = new ArrayList<UploadDetail>(); 
+		
+		for (File file : allFiles) {
+			details = new UploadDetail();
+			details.setFileName(file.getName());
+			details.setFileSize(file.length() / 1024);
+			fileList.add(details);
+		}
+
 		if(course == null || comments == null) {
 			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
 		}
 		request.setAttribute("course", course);
 		request.setAttribute("professorList", professorList);
 		request.setAttribute("commentList", comments);
+		request.setAttribute("uploadedFiles", fileList);
 		request.getRequestDispatcher("courseDetail.jsp").forward(request, response);
 	}
 

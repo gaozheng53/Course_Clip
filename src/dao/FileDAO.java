@@ -25,8 +25,8 @@ public class FileDAO {
 			while (rs.next()) {
 				File file = new File();
 				file.setCommentId(commentId);
-				file.setPath(rs.getString("path"));
-				file.setCreateTime(rs.getTimestamp("create_time"));
+				file.setPath(rs.getString("path"));			
+				file.setCreateTime(rs.getTimestamp("create_time"));				
 				file.setFileName(rs.getString("name"));
 				file.setFileId(rs.getLong("file_id"));
 				res.add(file);
