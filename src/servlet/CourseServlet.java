@@ -41,7 +41,8 @@ public class CourseServlet extends HttpServlet {
 		Course course = CourseDAO.getCourseDetail(course_id);
 		List<String[]> professorList = CourseDAO.getProfessorList(course_id);
 		List<Comment> comments = CourseDAO.getCommentsList(Long.parseLong(request.getParameter("id")));
-		
+	
+		/*
 		//display all the files
 		String applicationPath = getServletContext().getRealPath("");
 		String UPLOAD_DIR = "uploadfile";		
@@ -58,6 +59,7 @@ public class CourseServlet extends HttpServlet {
 			details.setFileSize(file.length() / 1024);
 			fileList.add(details);
 		}
+		*/
 
 		if(course == null || comments == null) {
 			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
@@ -65,7 +67,9 @@ public class CourseServlet extends HttpServlet {
 		request.setAttribute("course", course);
 		request.setAttribute("professorList", professorList);
 		request.setAttribute("commentList", comments);
-		request.setAttribute("uploadedFiles", fileList);
+		
+		//request.setAttribute("uploadedFiles", fileList);
+		
 		request.getRequestDispatcher("courseDetail.jsp").forward(request, response);
 	}
 
