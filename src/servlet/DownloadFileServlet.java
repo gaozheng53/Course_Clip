@@ -46,7 +46,9 @@ public class DownloadFileServlet extends HttpServlet {
 		response.setContentType(getServletContext().getMimeType(filename));
 		response.setHeader("Content-Disposition", "attachment;filename="+filename);
 		//Get the path of the file
+		
 		String fullFileName = getServletContext().getRealPath("/uploadfile/" + filename);
+		log(fullFileName);
 			
 		//Read file
 		InputStream in = new FileInputStream(fullFileName);

@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <title>Course Detail</title>
 </head>
+
+
 <body>
 	<h1>Course Detail</h1>
 	<br>
@@ -43,6 +45,21 @@
 			<br>
 		</c:forEach>
 	</table>
+	
+	<form action="subscribe.do" name = "subscribeForm" method = "post">
+		<input type = "hidden" value = "${course.id}" name = "courseId">
+		<button>Subscribe</button>
+	</form>
+	
+	<form action="unsubscribe.do" name = "unsubscribeForm" method = "post">
+		<input type = "hidden" value = "${course.id}" name = "courseId">
+		<button>Unsubscribe</button>
+	</form>
+
+
+	<p id = "alertm">${alertmessage}</p>
+	<p id = "unalertm">${uns_alertmessage}</p>
+	
 	
 	<p>Add Your Comment</p>
 	<form action = "addcomment.do" name="commentForm" method="post" enctype="multipart/form-data">
