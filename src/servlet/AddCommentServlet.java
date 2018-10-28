@@ -62,10 +62,14 @@ public class AddCommentServlet extends HttpServlet {
 		String applicationPath = getServletContext().getRealPath("");
 		String UPLOAD_DIR = "uploadfile";
 		
+		
 		// constructs path of the directory to save uploaded file		
 		String uploadFilePath = applicationPath + UPLOAD_DIR; 
 		log(uploadFilePath);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e1ab3417db1f7d1e4faabb5dae1d33673af218b
 		// creates upload folder if it does not exists
 		File uploadFolder = new File(uploadFilePath);
 		if (!uploadFolder.exists()) {

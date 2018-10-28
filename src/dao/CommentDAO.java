@@ -112,6 +112,7 @@ public class CommentDAO {
 	
 	public static void AddCommentFile(String filename, String createtime, int commentid) {
 		con = DBHelper.getConnection();
+		System.out.println(filename);
 		String sql = "insert into file (name, create_time, path, comment_id) values(?,?,?,?) ";
 		try {
 			ps = con.prepareStatement(sql);

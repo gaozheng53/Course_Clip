@@ -1,5 +1,9 @@
 package servlet;
 
+//-----------Edit by Tianrou -----------
+//Add the function to read notification
+//--------------------------------------
+
 import java.io.IOException;
 import java.util.List;
 
@@ -10,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.CommentDAO;
+import dao.NotificationDAO;
 import dao.UserDAO;
 import po.Comment;
 import po.User;
+import po.Course;
 
 /**
  * Servlet implementation class UserInfo
@@ -26,12 +32,23 @@ public class UserInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//get user information
 		User user = UserDAO.getUserInfo(Long.parseLong(request.getParameter("id")));
+		
+		//get comment list which user submit
 		List<Comment> comments = CommentDAO.CommentListById(Long.parseLong(request.getParameter("id")));
 		if(user == null || comments == null) {
 			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
 			return;
 		}
+		
+		//get notification for new comment of courses which user subscribe
+		Long userid = Long.parseLong(request.getParameter("id"));
+		List<Course> notificationCourse = NotificationDAO.displayNotification(userid);
+		
+		//return the result to profile.jsp
+		request.setAttribute("notificationList", notificationCourse);
 		request.setAttribute("user", user);
 		request.setAttribute("commentList", comments);
 		request.getRequestDispatcher("profile.jsp").forward(request, response);
