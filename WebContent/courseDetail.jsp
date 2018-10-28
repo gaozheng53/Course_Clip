@@ -3,23 +3,65 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Course Detail</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
-<script type="text/javascript">
-	function validate(){
-		var content = $('#contentText').val();
-		alert(content);
-		var filecontent = $('#fileName').val();
-		alert(filecontent);
-	}
-</script>
+
+
+<style type="text/css">
+
+html{   
+    width: 100%;   
+    height: 100%;   
+    overflow: hidden;   
+    font-style: sans-serif;   
+}
+
+body{   
+    width: 100%;   
+    height: 100%;   
+    font-family: 'Open Sans',sans-serif;   
+    margin: 0;   
+    background-color: #727696;   
+}
+
+#detail{   
+    position: absolute;   
+    top: 26%;   
+    left:26%;   
+    margin: -150px 0 0 -150px;   
+    width: 300px;   
+    height: 300px;   
+}
+
+#detail h1{   
+    color: #fff;   
+    text-shadow:0 0 10px;   
+    letter-spacing: 1px;   
+    text-align: left;   
+}
+
+#table{
+    margin: auto;
+    width: 90%;
+    margin-top: 260px;
+    padding: 10px;
+}
+
+h1{   
+    font-size: 2em;   
+    margin: 0.67em 0;   
+} 
+
+</style>
+
+
 </head>
 
+
 <body>
+<div id="detail">
 	<h1>Course Detail</h1>
 	<br>
 	<br>
@@ -76,10 +118,12 @@
 	<form action = "addcomment.do" name="commentForm" method="post" enctype="multipart/form-data">
     	<textarea id="contentText" class="text" cols="70" rows ="8" name="contentText"></textarea>
     	<input type="hidden" value="${course.id}" name = "courseId">
-    	<input type="hidden" value="${course.name}" name = "courseName">   	
+    	<input type="hidden" value="${course.name}" name = "courseName">
+    	
 		<br>
-		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
-   		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
+		<input type="file" value="Attach File" name = "fileName" multiple>
+   		<input type="submit" value="Submit" class="submitButton">
 	</form>
+<div>
 </body>
 </html>
