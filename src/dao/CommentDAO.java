@@ -36,7 +36,7 @@ public class CommentDAO {
 				comment.setCommentId(rs.getLong("comment_id"));
 				comment.setCreateTime(rs.getTimestamp("create_time"));
 				comment.setUsername(rs.getString("username"));
-				comment.setFileList(FileDAO.getFileList(id));
+				comment.setFileList(FileDAO.getFileList(rs.getLong("comment_id")));
 				res.add(comment);
 			}
 		} catch (SQLException e) {
@@ -63,7 +63,50 @@ public class CommentDAO {
 		}
 		return res;
 	}
-	
+	public static List<Comment> CommentListByCommentId(Long commentid) {
+		List<Comment> res = new LinkedList<>(); 
+		con = DBHelper.getConnection();
+		String sql = "select * from comment where comment_id = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, commentid);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Comment comment = new Comment();
+				comment.setUserId(rs.getLong("user_id"));
+				comment.setContent(rs.getString("content"));
+				comment.setCourseName(rs.getString("coursename"));
+				comment.setCourseId(rs.getLong("course_id"));
+				comment.setCommentId(commentid);
+				comment.setCreateTime(rs.getTimestamp("create_time"));
+				comment.setUsername(rs.getString("username"));
+				comment.setFileList(FileDAO.getFileList(commentid));
+				res.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return res;
+	}
 	public static int AddComment(Long courseid, Long userid, String content, String username, String createtime, String coursename) {
 		con = DBHelper.getConnection();
 		String sql = "insert into comment (course_id, user_id, content, username, create_time, coursename) values(?,?,?,?,?,?) ";
@@ -144,4 +187,133 @@ public class CommentDAO {
 			}
 		}	
 	}
+	
+	
+	public static void DeleteComment(Long commentid) {
+		con = DBHelper.getConnection();
+		String sql = "delete from comment where comment_id = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, commentid);
+			ps.executeUpdate();						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}	
+	}
+	
+	
+	public static void DeleteCommentFile(Long commentid) {
+		con = DBHelper.getConnection();
+		String sql = "delete from file where comment_id = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, commentid);
+			ps.executeUpdate();						
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}	
+	}
+	public static void UpdateComment(Long commentid, String content) {
+		con = DBHelper.getConnection();
+		String sql = "update comment set content = ? where comment_id = ? ";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, content);
+			ps.setLong(2, commentid);
+			ps.executeUpdate();							
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		
+	}
+	
+	public static void DeleteFile(Long commentid) {
+		con = DBHelper.getConnection();
+		String sql = "delete from file where comment_id = ?";
+		try {
+			ps = con.prepareStatement(sql);			
+			ps.setLong(1, commentid);
+			ps.execute();							
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		
+	}
+	
 }

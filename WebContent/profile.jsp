@@ -45,13 +45,23 @@
 		<tr>
 			<td>Course Name</td>
 			<td>Content</td>
+			<td>File list</td>
 			<td>Create Time</td>
+			<td>Operation</td>
 		</tr>
 		<c:forEach items="${commentList}" var="comment">
-			<tr>
+			<tr id="comment${comment.commentId}">
 				<td>${comment.courseName}</td>
 				<td>${comment.content}</td>
+				<td>
+					<table>
+						<c:forEach items="${comment.fileList}" var="file">
+							<a href="/OOAD-Project/downloadfile?filename=${file.fileName}"><tr>[${file.fileName}]</tr></a>
+						</c:forEach>
+					</table>
+				</td>
 				<td>${comment.createTime}</td>
+				<td><a href="/OOAD-Project/EditComment?comment=${comment.commentId}"> Edit</a> | <a href="/OOAD-Project/DeleteComment?comment=${comment.commentId}">Delete</a></td>
 			</tr>
 		</c:forEach>
 </table>

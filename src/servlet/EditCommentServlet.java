@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,30 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
-import dao.CourseDAO;
-import dao.FileDAO;
+import dao.CommentDAO;
 import po.Comment;
-import po.Course;
-import po.UploadDetail;
+import po.File;
 
 /**
- * Servlet implementation class CourseServlet
+ * Servlet implementation class EditComment
  */
-
-@WebServlet("/downloadfile")
-public class DownloadFileServlet extends HttpServlet {
+@WebServlet("/EditComment")
+public class EditCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DownloadFileServlet() {
+    public EditCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,25 +32,27 @@ public class DownloadFileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String filename = request.getParameter("filename");	
-		response.setContentType(getServletContext().getMimeType(filename));
-		response.setHeader("Content-Disposition", "attachment;filename="+filename);
-		//Get the path of the file
-		String applicationPath =  "/Users/shengyidan/Desktop/Course_Clip/uploadfile/"+filename; 
-		
-		//Read file
-		InputStream in = new FileInputStream(applicationPath);
-		OutputStream out = response.getOutputStream();
-		
-		//Write file
-		int b;
-		while((b=in.read())!= -1)
-		{
-			out.write(b);
+		// TODO Auto-generated method stub
+		String commentid = request.getParameter("comment");
+		List<Comment> comments = CommentDAO.CommentListByCommentId(Long.parseLong(commentid));
+		String fileNames = "";
+		for(Comment c: comments){
+			for(File a: c.getFileList()){
+				fileNames += a.getFileName() + ",";
+			}
+		}
+		if(fileNames.length() == 0){
+			fileNames = "";
+		}
+		else{
+			fileNames = fileNames.substring(0,fileNames.length()-1);
 		}
 		
-		in.close();
-		out.close();	
+		
+		request.setAttribute("commentList", comments);
+		request.setAttribute("fileList", fileNames);
+		
+		request.getRequestDispatcher("EditComment.jsp").forward(request, response);
 	}
 
 	/**

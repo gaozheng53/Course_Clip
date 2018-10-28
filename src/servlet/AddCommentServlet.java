@@ -11,7 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -59,13 +61,15 @@ public class AddCommentServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 			
 		req.setCharacterEncoding("utf-8");		
-		String applicationPath = getServletContext().getRealPath("");
+		//String applicationPath = getServletContext().getRealPath("");
+		String applicationPath =  "/Users/shengyidan/Desktop/Course_Clip/"; 
 		String UPLOAD_DIR = "uploadfile";
 		
 		
 		// constructs path of the directory to save uploaded file		
 		String uploadFilePath = applicationPath + UPLOAD_DIR; 
 		log(uploadFilePath);
+		
 		// creates upload folder if it does not exists
 		File uploadFolder = new File(uploadFilePath);
 		if (!uploadFolder.exists()) {
