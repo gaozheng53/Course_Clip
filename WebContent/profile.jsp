@@ -39,7 +39,7 @@
 <br>
 <p>Welcome ${user.username}!</p>
 <p>Contact me: ${user.email}</p>
-
+<a href="javascript:history.go(-1)">Back</a>
 <h2>Comment History</h2>
 <table border="1">
 		<tr>

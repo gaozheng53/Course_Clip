@@ -225,6 +225,90 @@ public class CourseDAO {
 		}
 	}
 	
+	public static boolean checkUniqueByName(Long courseId, String courseName){
+		con = DBHelper.getConnection();
+		String sql = "select * from course where course_id != ? and course_name = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, courseId);
+			ps.setString(2, courseName);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				// not unique
+				return false;
+			}else {
+				// no such course
+				return true;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return true;		
+	}
+	
+	public static boolean checkUniqueByNumber(Long courseId, Long courseNumber){
+		con = DBHelper.getConnection();
+		String sql = "select * from course where course_id != ? and course_number = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, courseId);
+			ps.setLong(2, courseNumber);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				// not unique
+				return false;
+			}else {
+				// no such course
+				return true;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return true;		
+	}
+	
 	public static Course searchByNameAndNumber(String courseName, Long courseNumber) {
 		Course course = new Course();
 		con = DBHelper.getConnection();

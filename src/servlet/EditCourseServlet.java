@@ -59,6 +59,7 @@ public class EditCourseServlet extends HttpServlet {
 			professorList.add(teach);
 		}
 		request.setAttribute("course", course);
+		request.setAttribute("courseId", courseId);
 		request.setAttribute("professorList", professorList);
 		request.getRequestDispatcher("courseEdit.jsp").forward(request, response);
 	}

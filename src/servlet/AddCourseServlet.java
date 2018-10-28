@@ -40,18 +40,27 @@ public class AddCourseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] professoresName = request.getParameterValues("professorName");
 		String[] professoresLink = request.getParameterValues("professorLink");
-
+		
 		Course course = new Course();
 		course.setName(request.getParameter("name"));
 		course.setNumber(Long.parseLong(request.getParameter("number")));
 		course.setTrack(request.getParameter("track"));
 		course.setDescription(request.getParameter("description"));
 		course.setCommentNum(0);
+		Boolean uniqueName = CourseDAO.checkUniqueByName(course.getId(),course.getName());
+		Boolean uniqueNumber = CourseDAO.checkUniqueByNumber(course.getId(), course.getNumber());
+		if(!uniqueName || ! uniqueNumber) {
+			request.setAttribute("inf", "Course name and number should be unique");
+			request.getRequestDispatcher("courseAdd.jsp").forward(request, response);
+			return;
+		}
 		CourseDAO.addCourse(course);
 		if(professoresName != null && professoresLink != null) {
 			Long courseId = CourseDAO.searchByNameAndNumber(course.getName(), course.getNumber()).getId();
 			for(int i = 0; i < professoresLink.length; i ++) {
-				TeachDAO.add(courseId, professoresName[i], professoresLink[i]);
+				if(professoresName[i] != null && professoresLink[i] != null) {
+					TeachDAO.add(courseId, professoresName[i], professoresLink[i]);
+				}
 			}
 		}
 		

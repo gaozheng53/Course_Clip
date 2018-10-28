@@ -45,6 +45,8 @@ public class CourseServlet extends HttpServlet {
 		if(course == null || comments == null) {
 			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
 		}
+		request.setAttribute("username", request.getSession().getAttribute("username"));
+		request.setAttribute("userid", request.getSession().getAttribute("userid"));
 		request.setAttribute("course", course);
 		request.setAttribute("professorList", professorList);
 		request.setAttribute("commentList", comments);
