@@ -8,8 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Course Detail</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
+<script type="text/javascript">
+	function validate(){
+		var content = $('contentText').val();
+		alert(content);
+		var filecontent = $('fileName').val();
+		alert(filecontent);
+	}
+</script>
 </head>
-
 
 <body>
 	<h1>Course Detail</h1>
@@ -68,11 +76,10 @@
 	<form action = "addcomment.do" name="commentForm" method="post" enctype="multipart/form-data">
     	<textarea id="contentText" class="text" cols="70" rows ="8" name="contentText"></textarea>
     	<input type="hidden" value="${course.id}" name = "courseId">
-    	<input type="hidden" value="${course.name}" name = "courseName">
-    	
+    	<input type="hidden" value="${course.name}" name = "courseName">   	
 		<br>
-		<input type="file" value="Attach File" name = "fileName" multiple>
-   		<input type="submit" value="Submit" class="submitButton">
+		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
+   		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
 	</form>
 </body>
 </html>
