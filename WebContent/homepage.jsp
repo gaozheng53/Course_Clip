@@ -97,7 +97,7 @@ $( document ).ready(function() {
 
 			<tr class="tableContent">
 				<td>${course.id}</td>
-				<td><a href="course.do?id=${course.id}">${course.name}</a></td>
+				<td><a id="course${course.id}" href="course.do?id=${course.id}">${course.name}</a></td>
 				<td>${course.number}</td>
 				<td>${course.description}</td>
 				<td>${course.track}</td>		

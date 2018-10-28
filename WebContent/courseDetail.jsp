@@ -12,9 +12,13 @@
 <script type="text/javascript">
 	function validate(){
 		var content = $('#contentText').val();
-		alert(content);
 		var filecontent = $('#fileName').val();
-		alert(filecontent);
+		if(content == "" && filecontent == ""){
+			alert("Please enter comment content!");
+		}
+		else{
+			$('#postcomment').submit();
+		}
 	}
 </script>
 </head>
@@ -46,17 +50,16 @@
 				<td>${comment.content}</td>
 				<td>
 				<table>
-						<c:forEach items="${comment.fileList}" var="file">
-							<a href="/OOAD-Project/downloadfile?filename=${file.fileName}"><tr>[${file.fileName}]</tr></a>
-						</c:forEach>
-					</table>
+					<c:forEach items="${comment.fileList}" var="file">
+						<a href="/OOAD-Project/downloadfile?filename=${file.fileName}"><tr>[${file.fileName}]</tr></a>
+					</c:forEach>
+				</table>
 				 </td>			 
 				<td>${comment.createTime}</td>			
 			</tr>
 			<br>
 		</c:forEach>
 	</table>
-	
 	<form action="subscribe.do" name = "subscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
 		<button>Subscribe</button>
@@ -79,7 +82,7 @@
     	<input type="hidden" value="${course.name}" name = "courseName">   	
 		<br>
 		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
-   		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
+   		<input type="submit" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
 	</form>
 </body>
 </html>
