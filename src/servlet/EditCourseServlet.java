@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,24 +10,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 import dao.CourseDAO;
-import dao.FileDAO;
-import po.Comment;
+import dao.TeachDAO;
 import po.Course;
-import po.UploadDetail;
+import po.Teach;
+
+
+
 
 /**
  * Servlet implementation class CourseServlet
  */
 
-@WebServlet("/course.do")
-public class CourseServlet extends HttpServlet {
+@WebServlet("/editCourse.do")
+public class EditCourseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CourseServlet() {
+    public EditCourseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,23 +40,28 @@ public class CourseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		long course_id = Long.parseLong(request.getParameter("id"));
-		Course course = CourseDAO.getCourseDetail(course_id);
-		List<String[]> professorList = CourseDAO.getProfessorList(course_id);
-		List<Comment> comments = CourseDAO.getCommentsList(Long.parseLong(request.getParameter("id")));
-	
-		if(course == null || comments == null) {
-			request.getRequestDispatcher("ERROR.jsp").forward(request, response);
+		long courseId = Long.parseLong(request.getParameter("id"));
+		Course course = CourseDAO.getCourseDetail(courseId);
+		// 获取professor列表
+		List<String> professorNameList = TeachDAO.getCourseTeachName(courseId);
+		List<String> professorLinkList = TeachDAO.getCourseTeachLink(courseId);
+		List<Integer> professorTeachIdList = TeachDAO.getCourseTeachId(courseId);
+		// 获取professor list
+		// 封装成po 
+		List<Teach> professorList = new ArrayList<Teach>();
+		for(int i = 0; i < professorNameList.size(); i ++) {
+			Teach teach = new Teach();
+			teach.setCourseId(courseId);
+			teach.setTeachId(professorTeachIdList.get(i));
+			teach.setProfessorName(professorNameList.get(i));
+			teach.setProfessorLink(professorLinkList.get(i));
+//			System.out.println(professorNameList.get(i) + "   " + professorLinkList.get(i));
+			professorList.add(teach);
 		}
-		request.setAttribute("username", request.getSession().getAttribute("username"));
-		request.setAttribute("userid", request.getSession().getAttribute("userid"));
 		request.setAttribute("course", course);
+		request.setAttribute("courseId", courseId);
 		request.setAttribute("professorList", professorList);
-		request.setAttribute("commentList", comments);
-		
-		//request.setAttribute("uploadedFiles", fileList);
-		
-		request.getRequestDispatcher("courseDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("courseEdit.jsp").forward(request, response);
 	}
 
 	/**

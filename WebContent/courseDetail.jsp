@@ -15,12 +15,15 @@
 	<h1>Course Detail</h1>
 	<br>
 	<br>
+	Welcome <a href="userinfo.do?id=${userid}">${username}</a>!
 	<p>Course Name: ${course.name}</p>
 	<p>Course Description: ${course.description}</p>
 	<p>Course Lecturer: </p>
 	<c:forEach items="${professorList}" var="professor">
 		<p>- <a href="${professor[1]}">${professor[0]}</a></p>
 	</c:forEach>
+
+<a href="javascript:history.go(-1)">Back</a>
 
 	<table border="1">
 		<tr>

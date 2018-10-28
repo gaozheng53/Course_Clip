@@ -36,8 +36,15 @@ public class LoginServlet extends HttpServlet {
 		if (user!=null) { // check successfully
 			req.getSession().setAttribute("username", username);
 			req.getSession().setAttribute("userid", user.getUserId());
+			req.getSession().setAttribute("role", user.getRole());
 			req.setAttribute("user", user);
-			req.getRequestDispatcher("/homepage.do").forward(req, resp);
+			if(user.getRole() == 1) {
+				System.out.println("Administrator login");
+				req.getRequestDispatcher("/manage.do").forward(req, resp);
+			}else {
+				System.out.println("Normal user login");
+				req.getRequestDispatcher("/homepage.do").forward(req, resp);
+			}
 		} else { // check failed
 			req.setAttribute("inf", "Username or password doesn't match our record, please enter again.");
 			req.getRequestDispatcher("login.jsp").forward(req, resp);

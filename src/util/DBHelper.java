@@ -16,11 +16,11 @@ public class DBHelper {
 
 
 
-	public static final String url = "jdbc:mysql://localhost:8889/OOAD?characterEncoding=utf8&useSSL=true";
+	public static final String url = "jdbc:mysql://localhost:3306/OOAD?characterEncoding=utf8&useSSL=true";
 
 	public static final String username = "root";
 
-	public static final String password = "root";
+	public static final String password = "123456";
 
 	public static Connection con = null;
 

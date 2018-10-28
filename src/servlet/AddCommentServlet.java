@@ -93,7 +93,6 @@ public class AddCommentServlet extends HttpServlet {
 			String username = (String) session.getAttribute("username");
 			Long userid = Long.parseLong(session.getAttribute("userid").toString());
 			int commentid = CommentDAO.AddComment(courseid, userid, content, username, createtime, coursename);
-			
 			//upload files
 			String filename = req.getPart("fileName").getSubmittedFileName();
 			if( filename !=""){
