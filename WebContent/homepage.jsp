@@ -90,7 +90,7 @@ $( document ).ready(function() {
 			<td>number</td>
 			<td>description</td>
 			<td>track</td>
-			<td>comment number</td>
+
 		</tr>
 		
 		<c:forEach items="${courseList}" var="course">
@@ -100,8 +100,7 @@ $( document ).ready(function() {
 				<td><a href="course.do?id=${course.id}">${course.name}</a></td>
 				<td>${course.number}</td>
 				<td>${course.description}</td>
-				<td>${course.track}</td>
-				<td>${course.commentNum}</td>
+				<td>${course.track}</td>		
 			</tr>
 			<br>
 		</c:forEach>

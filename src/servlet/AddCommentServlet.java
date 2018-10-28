@@ -64,6 +64,7 @@ public class AddCommentServlet extends HttpServlet {
 		
 		// constructs path of the directory to save uploaded file		
 		String uploadFilePath = applicationPath + UPLOAD_DIR; 
+		log(uploadFilePath);
 
 		// creates upload folder if it does not exists
 		File uploadFolder = new File(uploadFilePath);
@@ -88,7 +89,6 @@ public class AddCommentServlet extends HttpServlet {
 			String username = (String) session.getAttribute("username");
 			Long userid = Long.parseLong(session.getAttribute("userid").toString());
 			int commentid = CommentDAO.AddComment(courseid, userid, content, username, createtime, coursename);
-			
 			//upload files
 			String filename = req.getPart("fileName").getSubmittedFileName();
 			if( filename !=""){

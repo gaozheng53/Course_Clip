@@ -107,6 +107,172 @@ public class CourseDAO {
 		return course;
 	}
 	
+	public static Course addCourse(Course course) {
+		con = DBHelper.getConnection();
+		String sql = "INSERT INTO course (course_name,course_number,description,track,comment_number) VALUES (?, ?, ?, ?,0)";
+		int re;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, course.getName());
+			ps.setLong(2, course.getNumber());
+			ps.setString(3, course.getDescription());
+			ps.setString(4, course.getTrack());
+			
+			re = ps.executeUpdate();
+			if (re == 0) {
+				System.out.println("Insert failed");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return course;
+	}
+	
+	public static void EditCourse(Course course) {
+		con = DBHelper.getConnection();
+		String sql = "UPDATE course SET course_name = ?, course_number = ?, description = ?, track= ? WHERE course_id = ?";
+		int re;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(5, course.getId());
+			ps.setString(1, course.getName());
+			ps.setLong(2, course.getNumber());
+			ps.setString(3, course.getDescription());
+			ps.setString(4, course.getTrack());
+			
+			re = ps.executeUpdate();
+			if (re == 0) {
+				System.out.println("Update failed");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+	}
+	
+	public static void DeleteCourse(Long courseId) {
+		con = DBHelper.getConnection();
+		String sql = "delete from course where course_id = ?";
+		int re;
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setLong(1, courseId);
+			re = ps.executeUpdate();
+			if (re == 0) {
+				System.out.println("Delete failed");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+	}
+	
+	public static Course searchByNameAndNumber(String courseName, Long courseNumber) {
+		Course course = new Course();
+		con = DBHelper.getConnection();
+		String sql = "select * from course where course_name = ? and course_number = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, courseName);
+			ps.setLong(2, courseNumber);
+			rs = ps.executeQuery();
+			if (rs.next()) {  
+				course.setId(rs.getLong("course_id"));  
+				course.setName(courseName);  
+				course.setDescription(rs.getString("description")); 
+				course.setNumber(courseNumber); 
+				course.setCommentNum(rs.getLong("comment_number"));
+				course.setTrack(rs.getString("track"));
+                return course; 
+			}else {
+				// no such course
+				return null;
+			}
+			// todo: sort by course number
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return course;
+	}
 	public static List<Comment> getCommentsList(Long courseId) {
 		List<Comment> list = new LinkedList<>();
 		con = DBHelper.getConnection();
