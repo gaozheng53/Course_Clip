@@ -20,7 +20,7 @@ public class DBHelper {
 
 	public static final String username = "root";
 
-	public static final String password = "123456";
+	public static final String password = "1234";
 
 	public static Connection con = null;
 

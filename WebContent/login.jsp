@@ -55,7 +55,7 @@
 
   <td colspan="2" align="center">
 
-   <input type="submit" value="Login"/>
+   <input type="submit" value="Login" id = "login"/>
 
    <input type="button" value="Registration" onclick=register() />
 
