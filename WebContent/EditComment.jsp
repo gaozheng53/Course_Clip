@@ -10,7 +10,10 @@
 <title>Edit Comment</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
 <script type="text/javascript">
+
 $(document).ready(function() {
+	var script = document.createElement("script")
+	script.setAttribute("src", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js") 
 	$('input:file').change(
 		
 	    function(e){
@@ -27,9 +30,14 @@ $(document).ready(function() {
 });
 </script>
 <script type="text/javascript">
+	
+	var script = document.createElement("script")
+	script.setAttribute("src", "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js") 
 	function clearFile(){
+		
 		$('#inputname').val(null);
 		console.log($('#inputname').val());
+		console.log("dd");
 	}
 </script>
 </head>
@@ -38,16 +46,16 @@ $(document).ready(function() {
 <form class = "form" action="editcomment.do" method="post" enctype="multipart/form-data">
 <c:forEach items="${commentList}" var="comment">
 <input type ="hidden" name = "id" value="${comment.commentId}"><br>
-Comment Content: <input type ="text" name = "commentcontent" value="${comment.content}"><br>
+Comment Content: <input type ="text" id = "commentcontent" name = "commentcontent" value="${comment.content}"><br>
 File name: <input type ="text" id = "inputname" name = "inputname" value="${fileList}" readonly>
 <input type="file" id="files" name = "fileName" style="display:none" multiple />
 
 <label for="files"> Select file button </label>
 
 </c:forEach>
-<input type="submit" value = "submit">
+<input id = "submitbutton" type="submit" value = "submit">
 </form>
 
-<button id = "clear" onclick = "clearFile()">delete file</button>
+<button id = "clearComment" onclick = "clearFile()">delete file</button>
 </body>
 </html>

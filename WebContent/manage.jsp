@@ -11,9 +11,12 @@
 </head>
 <body>
 <h1>Manage Course</h1>
-
-<input type = "" id = "newCourseId" value = "${newCourseId}">
-<a href="courseAdd.jsp" id = "addCourse">Add New Course</a>
+<br>
+<form method="post" action="logout.do">
+	<input type="submit" value="Log out" id = "logout"/>
+</form>
+<br>
+<a href="courseAdd.jsp">Add New Course</a>
 <table border="1" id="courseTable">
 		<tr>
 			<td>id</td>

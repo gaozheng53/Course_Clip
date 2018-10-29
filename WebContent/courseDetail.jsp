@@ -12,9 +12,13 @@
 <script type="text/javascript">
 	function validate(){
 		var content = $('#contentText').val();
-		alert(content);
 		var filecontent = $('#fileName').val();
-		alert(filecontent);
+		if(content == "" && filecontent == ""){
+			alert("Please enter comment content!");
+		}
+		else{
+			$('#commentForm').submit();
+		}
 	}
 </script>
 </head>
@@ -22,12 +26,9 @@
 <body>
 	<h1>Course Detail</h1>
 	<br>
+	<a id="backHomepage" href="homepage.do">Back Homepage</a>
 	<br>
 	Welcome <a href="userinfo.do?id=${userid}">${username}</a>!
-	<br>
-	<a id="backHomepage" href=" ">Back Homepage</a >
-	
-	<br>
 	<p>Course Name: ${course.name}</p>
 	<p>Course Description: ${course.description}</p>
 	<p>Course Lecturer: </p>
@@ -50,10 +51,10 @@
 				<td>${comment.content}</td>
 				<td>
 				<table>
-						<c:forEach items="${comment.fileList}" var="file">
-							<a href="/OOAD-Project/downloadfile?filename=${file.fileName}"><tr>[${file.fileName}]</tr></a>
-						</c:forEach>
-					</table>
+					<c:forEach items="${comment.fileList}" var="file">
+						<a href="/OOAD-Project/downloadfile?filename=${file.fileName}"><tr>[${file.fileName}]</tr></a>
+					</c:forEach>
+				</table>
 				 </td>			 
 				<td>${comment.createTime}</td>			
 			</tr>
@@ -77,13 +78,15 @@
 	
 	
 	<p>Add Your Comment</p>
-	<form action = "addcomment.do" name="commentForm" method="post" enctype="multipart/form-data">
+	<form action = "addcomment.do" id="commentForm" name="commentForm" method="post" enctype="multipart/form-data">
     	<textarea id="contentText" class="text" cols="70" rows ="8" name="contentText"></textarea>
     	<input type="hidden" value="${course.id}" name = "courseId">
     	<input type="hidden" value="${course.name}" name = "courseName">   	
 		<br>
 		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
-   		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
-	</form>
+		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
+   	</form>
+
+
 </body>
 </html>
