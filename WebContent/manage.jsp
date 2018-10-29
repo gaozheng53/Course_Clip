@@ -12,7 +12,8 @@
 <body>
 <h1>Manage Course</h1>
 
-<a href="courseAdd.jsp">Add New Course</a>
+<input type = "" id = "newCourseId" value = "${newCourseId}">
+<a href="courseAdd.jsp" id = "addCourse">Add New Course</a>
 <table border="1" id="courseTable">
 		<tr>
 			<td>id</td>
@@ -31,7 +32,7 @@
 				<td>${course.number}</td>
 				<td>${course.description}</td>
 				<td>${course.track}</td>
-				<td><a href="editCourse.do?id=${course.id}">Edit</a>&nbsp;&nbsp;<a href="deleteCourse.do?id=${course.id}">Delete</a></td>
+				<td><a id="edit${course.id}" href="editCourse.do?id=${course.id}">Edit</a>&nbsp;&nbsp;<a id="delete${course.id}"href="deleteCourse.do?id=${course.id}">Delete</a></td>
 			</tr>
 			<br>
 		</c:forEach>

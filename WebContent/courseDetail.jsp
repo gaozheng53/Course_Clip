@@ -24,6 +24,10 @@
 	<br>
 	<br>
 	Welcome <a href="userinfo.do?id=${userid}">${username}</a>!
+	<br>
+	<a id="backHomepage" href=" ">Back Homepage</a >
+	
+	<br>
 	<p>Course Name: ${course.name}</p>
 	<p>Course Description: ${course.description}</p>
 	<p>Course Lecturer: </p>
@@ -59,12 +63,12 @@
 	
 	<form action="subscribe.do" name = "subscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button>Subscribe</button>
+		<button id = "subscribe">Subscribe</button>
 	</form>
 	
 	<form action="unsubscribe.do" name = "unsubscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button>Unsubscribe</button>
+		<button id = "unsubscribe">Unsubscribe</button>
 	</form>
 
 

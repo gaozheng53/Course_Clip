@@ -50,11 +50,11 @@ function validate() {
 <h1>Edit Course</h1>
 <form class = "form" action="update.do">
 <input type ="hidden" name = "id" value="${course.id}">
-Name  <input type ="text" name = "name" value="${course.name}"><br>
-Number  <input type ="text" name = "number" value="${course.number}"><br>
-Description  <input type ="text" name = "description" value="${course.description}"><br>
-Track  <%-- <input type ="text" name = "track" value="${course.track}"> --%>
-<select name = "track" id = "track">
+Name  <input type ="text" id = "courseName" name = "name" value="${course.name}"><br>
+Number  <input type ="text" id = "courseNumber" name = "number" value="${course.number}"><br>
+Description  <input type ="text" id = "courseDescription" name = "description" value="${course.description}"><br>
+Track  
+<select name = "track" id = "courseTrack">
 	  <option value =""></option>
 	  <option value ="DS">Data Sciences</option>
 	  <option value ="IA">Information Assurance</option>
@@ -67,12 +67,12 @@ Professor:<input type="button" onclick="addInput()" value = "Add Professor"></in
 <div class = "professorList" id = "pro${professorList.teachId}">
 Name: <input type ="text" name = "professorName" value="${professorList.professorName}">
 Link: <input type ="text" name = "professorLink" value="${professorList.professorLink}">
-<input type="button" onclick ="remove(${professorList.teachId})" value = "x"><br>
+<input type="button" onclick ="remove(${professorList.teachId})" value = "x" ><br>
 </div>
 
 </c:forEach>
 
-<input type="submit" value = "submit" onclick="return validate()">
+<input type="submit" value = "submit" onclick="return validate()" id = "submitEdit">
 </form>
 
 <c:if test="${requestScope.inf!=null}">

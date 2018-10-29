@@ -52,7 +52,7 @@ Track
 Professor <input type="button" onclick="addInput()" value = "Add Professor"></input><div id = "professor"></div>
 
 
-<input type="submit" value = "submit" onclick="return validate()">
+<input type="submit" value = "submit" onclick="return validate()" id = "addSubmit">
 </form>
 <c:if test="${requestScope.inf!=null}">
 

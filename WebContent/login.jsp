@@ -57,7 +57,7 @@
 
    <input type="submit" value="Login" id = "login"/>
 
-   <input type="button" value="Registration" onclick=register() />
+   <input type="button" value="Registration" onclick=register() id="reg"/>
 
   </td>
 
@@ -69,7 +69,7 @@
 
   <c:if test="${requestScope.inf!=null}">
 
-      <span color="red"> ${requestScope.inf} </span>
+      <p id = "loginAlert"> ${requestScope.inf} </p>
 
   </c:if>
 

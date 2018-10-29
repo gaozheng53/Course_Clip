@@ -6,7 +6,7 @@ public class LoginTest {
 WebDriver driver;
 @Before
 public void openWikipediaEnglishPage() throws InterruptedException{
-System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+System.setProperty("webdriver.chrome.driver","chromedriver");
 driver = new ChromeDriver();
 driver.get("http://localhost:8080/OOAD-Project/login.jsp");
 Assert.assertEquals("Login", driver.getTitle());

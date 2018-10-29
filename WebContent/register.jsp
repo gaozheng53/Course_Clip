@@ -90,7 +90,7 @@
 			<tr>
 
 				<td colspan="2" align="center">
-				<input type="submit" value="Submit" onclick="return validate()" /> 
+				<input type="submit" value="Submit" onclick="return validate()" id = "register" /> 
 				<input type="reset" value="Reset" />
 				</td>
 
@@ -100,7 +100,7 @@
 
 	</form>
 
-<p>${message}</p>
+<p id = "message">${message}</p>
 </body>
 
 </html>

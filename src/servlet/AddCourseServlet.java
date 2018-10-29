@@ -54,7 +54,7 @@ public class AddCourseServlet extends HttpServlet {
 			request.getRequestDispatcher("courseAdd.jsp").forward(request, response);
 			return;
 		}
-		CourseDAO.addCourse(course);
+		int newCourseId = CourseDAO.addCourse(course);
 		if(professoresName != null && professoresLink != null) {
 			Long courseId = CourseDAO.searchByNameAndNumber(course.getName(), course.getNumber()).getId();
 			for(int i = 0; i < professoresLink.length; i ++) {
@@ -66,6 +66,7 @@ public class AddCourseServlet extends HttpServlet {
 		
 		List<Course> courseList = CourseDAO.displayCourses();
 		request.setAttribute("courseList", courseList);
+		request.setAttribute("newCourseId", newCourseId);
 		request.getRequestDispatcher("manage.jsp").forward(request, response);
 	}
 

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import po.Comment;
 import po.Course;
 import util.DBHelper;
@@ -107,12 +109,13 @@ public class CourseDAO {
 		return course;
 	}
 	
-	public static Course addCourse(Course course) {
+	public static int addCourse(Course course) {
 		con = DBHelper.getConnection();
 		String sql = "INSERT INTO course (course_name,course_number,description,track,comment_number) VALUES (?, ?, ?, ?,0)";
 		int re;
+		int newKey = -1;
 		try {
-			ps = con.prepareStatement(sql);
+			ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, course.getName());
 			ps.setLong(2, course.getNumber());
 			ps.setString(3, course.getDescription());
@@ -122,7 +125,12 @@ public class CourseDAO {
 			if (re == 0) {
 				System.out.println("Insert failed");
 			}
-			
+			if(re == 1){
+				ResultSet keys = ps.getGeneratedKeys();
+				keys.next();
+	            newKey = keys.getInt(1);
+	           return newKey;
+			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally { 
@@ -145,7 +153,7 @@ public class CourseDAO {
 				ps = null;
 			}
 		}
-		return course;
+		return newKey;
 	}
 	
 	public static void EditCourse(Course course) {
@@ -485,5 +493,7 @@ public class CourseDAO {
 		}
 		return list;
 	}
+	
+	
 	
 }
