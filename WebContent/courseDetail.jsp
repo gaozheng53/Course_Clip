@@ -26,6 +26,7 @@
 <body>
 	<h1>Course Detail</h1>
 	<br>
+	<a id="backHomepage" href="homepage.do">Back Homepage</a>
 	<br>
 	Welcome <a href="userinfo.do?id=${userid}">${username}</a>!
 	<p>Course Name: ${course.name}</p>
@@ -35,7 +36,8 @@
 		<p>- <a href="${professor[1]}">${professor[0]}</a></p>
 	</c:forEach>
 
-<a id="backHomepage" href="/OOAD-Project/homepage.do">Back</a>
+<a href="javascript:history.go(-1)">Back</a>
+
 	<table border="1">
 		<tr>
 			<th>username</th>
@@ -59,6 +61,7 @@
 			<br>
 		</c:forEach>
 	</table>
+	
 	<form action="subscribe.do" name = "subscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
 		<button id="subscribe">Subscribe</button>
@@ -83,7 +86,7 @@
 		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
 		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
    	</form>
-   	
-	
+
+
 </body>
 </html>

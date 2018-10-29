@@ -69,7 +69,7 @@
 
   <c:if test="${requestScope.inf!=null}">
 
-      <p id="loginAlert"> ${requestScope.inf} </p>
+      <p id = "loginAlert"> ${requestScope.inf} </p>
 
   </c:if>
 

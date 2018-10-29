@@ -28,7 +28,7 @@
 <br><br>
 
 
-<a  href = "login.jsp" onclick="javascript:window.location.href('login.jsp');return false;">Login again</a>
+<a id = "loginAgain" href = "login.jsp" onclick="javascript:window.location.href('login.jsp');return false;">Login again</a>
 
 </body>
 
