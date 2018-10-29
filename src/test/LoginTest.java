@@ -6,7 +6,7 @@ public class LoginTest {
 WebDriver driver;
 @Before
 public void openWikipediaEnglishPage() throws InterruptedException{
-System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+System.setProperty("webdriver.chrome.driver","chromedriver");
 driver = new ChromeDriver();
 driver.get("http://localhost:8080/OOAD-Project/login.jsp");
 Assert.assertEquals("Login", driver.getTitle());
@@ -15,13 +15,13 @@ Assert.assertEquals("Login", driver.getTitle());
 public void usernameBox() throws InterruptedException{
 WebElement username = driver.findElement(By.id("username"));
 username.sendKeys("gaozheng");
-Thread.sleep(5000);
+Thread.sleep(3000);
 WebElement password = driver.findElement(By.id("password"));
 password.sendKeys("111111");
-Thread.sleep(5000);
+Thread.sleep(3000);
 WebElement login = driver.findElement(By.id("login"));
 login.submit();
-Thread.sleep(5000);
+Thread.sleep(3000);
 Assert.assertEquals("Course Management", driver.getTitle());
 }
 @After

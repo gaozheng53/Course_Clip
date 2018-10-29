@@ -61,12 +61,12 @@
 	</table>
 	<form action="subscribe.do" name = "subscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button>Subscribe</button>
+		<button id="subscribe">Subscribe</button>
 	</form>
 	
 	<form action="unsubscribe.do" name = "unsubscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button>Unsubscribe</button>
+		<button id="unsubscribe">Unsubscribe</button>
 	</form>
 
 
