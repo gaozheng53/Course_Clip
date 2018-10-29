@@ -61,7 +61,7 @@
 					</table>
 				</td>
 				<td>${comment.createTime}</td>
-				<td><a href="/OOAD-Project/EditComment?comment=${comment.commentId}"> Edit</a> | <a href="/OOAD-Project/DeleteComment?comment=${comment.commentId}">Delete</a></td>
+				<td><a id="edit${comment.commentId}" href="/OOAD-Project/EditComment?comment=${comment.commentId}"> Edit</a> | <a  id="delete${comment.commentId}" href="/OOAD-Project/DeleteComment?comment=${comment.commentId}">Delete</a></td>
 			</tr>
 		</c:forEach>
 </table>

@@ -60,7 +60,7 @@ $( document ).ready(function() {
 
 	<h1>Login Successfully</h1>
 
-	Welcome <a href="userinfo.do?id=${user.userId}">${username}</a>!
+	Welcome <a id="user${user.userId}" href="userinfo.do?id=${user.userId}">${username}</a>!
 	<br>
 	<br>
 
