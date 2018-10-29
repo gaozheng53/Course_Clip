@@ -65,7 +65,7 @@ $( document ).ready(function() {
 	<br>
 
 	<form method="post" action="logout.do">
-		<input type="submit" value="Log out" />
+		<input type="submit" value="Log out" id="logout"/>
 	</form>
 
 	<br>

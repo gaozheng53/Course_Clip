@@ -17,7 +17,7 @@
 			alert("Please enter comment content!");
 		}
 		else{
-			$('#postcomment').submit();
+			$('#commentForm').submit();
 		}
 	}
 </script>
@@ -35,8 +35,7 @@
 		<p>- <a href="${professor[1]}">${professor[0]}</a></p>
 	</c:forEach>
 
-<a href="javascript:history.go(-1)">Back</a>
-
+<a id="backHomepage" href="/OOAD-Project/homepage.do">Back</a>
 	<table border="1">
 		<tr>
 			<th>username</th>
@@ -76,13 +75,15 @@
 	
 	
 	<p>Add Your Comment</p>
-	<form action = "addcomment.do" name="commentForm" method="post" enctype="multipart/form-data">
+	<form action = "addcomment.do" id="commentForm" name="commentForm" method="post" enctype="multipart/form-data">
     	<textarea id="contentText" class="text" cols="70" rows ="8" name="contentText"></textarea>
     	<input type="hidden" value="${course.id}" name = "courseId">
     	<input type="hidden" value="${course.name}" name = "courseName">   	
 		<br>
 		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
-   		<input type="submit" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
-	</form>
+		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
+   	</form>
+   	
+	
 </body>
 </html>
