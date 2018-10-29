@@ -15,7 +15,6 @@
 html{   
     width: 100%;   
     height: 100%;   
-    overflow: hidden;   
     font-style: sans-serif;   
 }
 
@@ -44,9 +43,6 @@ body{
     text-align: left;   
 }
 
-#table{
-
-}
 
 h1{   
     font-size: 2em;   
@@ -151,13 +147,15 @@ table.redTable tfoot .links a{
 <body>
 <div id="profile">
 <h1>Profile</h1>
-<br>
+<div id="words" style="color:#d3d3d3;">
 <p>Welcome ${user.username}!</p>
-<p>Contact me: ${user.email}</p>
-<a href="javascript:history.go(-1)">Back</a>
+<p>Your email: ${user.email}</p>
+<a href="javascript:history.go(-1)" style="position: absolute;top: 9%;right:10%; ">Back</a>
 
 <h2>Comment History</h2>
+</div>
 <table class="redTable" id="table">
+	<thead>
 		<tr>
 			<td>Course Name</td>
 			<td>Content</td>
@@ -165,6 +163,7 @@ table.redTable tfoot .links a{
 			<td>Create Time</td>
 			<td>Operation</td>
 		</tr>
+	</thead>
 		<c:forEach items="${commentList}" var="comment">
 			<tr id="comment${comment.commentId}">
 				<td>${comment.courseName}</td>
@@ -182,14 +181,16 @@ table.redTable tfoot .links a{
 		</c:forEach>
 </table>
 <br>
-<br>
-
-<h2>New Comment Notification</h2>
+<div id="words" style="color:#d3d3d3;">
+<h3>What's new in your subscription</h3>
+</div>
 <table class="redTable" id="table">
+		<thead>
 		<tr>
 			<td>Course Name</td>
-			<td>View</td>
+			<td></td>
 		</tr>
+		</thead>
 	<c:forEach items="${notificationList}" var="notification">
 		<tr>
 			<td><a href="course.do?id=${notification.id}">${notification.name}</a></td>

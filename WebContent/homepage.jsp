@@ -61,8 +61,7 @@ $( document ).ready(function() {
 
 html{   
     width: 100%;   
-    height: 100%;   
-    overflow: hidden;   
+    height: 100%;     
     font-style: sans-serif;   
 }
 
@@ -79,8 +78,7 @@ body{
     top: 26%;   
     left:26%;   
     margin: -150px 0 0 -150px;   
-    width: 300px;   
-    height: 300px;   
+ 
 }
 
 #home h1{   
@@ -90,11 +88,10 @@ body{
     text-align: left;   
 }
 
-#table{
+#courseTable{
     margin: auto;
-    width: 90%;
-    margin-top: 260px;
-    padding: 10px;
+    width: 94%;
+    margin-top: 126px;
 }
 
 h1{   
@@ -202,7 +199,7 @@ table.redTable tfoot .links a{
 	
 	
 	<div id="table"> 
-	<table class="redTable" border="1" id="courseTable">
+	<table class="redTable"  id="courseTable">
 		<thead>
 		<tr>
 			<td>id</td>
@@ -224,7 +221,13 @@ table.redTable tfoot .links a{
 			</tr>
 			<br>
 		</c:forEach>
-		
+		<tfoot>
+			<tr>
+				<td colspan="5">
+					<div class="links"><a href="#">&laquo;</a> <a class="active" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a></div>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 	</div>
 </body>

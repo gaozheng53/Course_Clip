@@ -37,8 +37,7 @@ $(document).ready(function() {
 
 html{   
     width: 100%;   
-    height: 100%;   
-    overflow: hidden;   
+    height: 100%;     
     font-style: sans-serif;   
 }
 
@@ -52,11 +51,10 @@ body{
 
 #comment{   
     position: absolute;   
-    top: 50%;   
+    top: 40%;   
     left:50%;   
     margin: -150px 0 0 -150px;   
-    width: 300px;   
-    height: 300px;   
+    width: 380px;    
 }
 
 #comment h1{   
@@ -69,11 +67,85 @@ body{
 h1{   
     font-size: 2em;   
     margin: 0.67em 0;   
-} 
+}
 
-input{   
-    width: 278px;   
-    height: 28px;   
+.bubble 
+{
+position: relative;
+width: 330px;
+height: 128px;
+padding: 0px;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+border: #4a77d4 solid 4px;
+}
+
+.bubble:after 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 26px 20px 0;
+border-color: #ffffff transparent;
+display: block;
+width: 0;
+z-index: 1;
+bottom: -26px;
+left: 262px;
+}
+
+.bubble:before 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 29px 23px 0;
+border-color: #4a77d4 transparent;
+display: block;
+width: 0;
+z-index: 0;
+bottom: -33px;
+left: 259px;
+}
+
+</style>
+
+</head>
+<body>
+<div id="comment" style="color: #fff;">  
+<h1>Edit Comment&nbsp&nbsp&nbsp&nbsp&nbsp</h1>
+<form class = "form" action="editcomment.do" method="post" enctype="multipart/form-data">
+
+<c:forEach items="${commentList}" var="comment">
+
+
+<input type ="hidden" name = "id" value="${comment.commentId}">
+
+
+<p >Comment Content: </p>
+
+<div class="bubble"> 
+<textarea name = "commentcontent" cols="43" rows ="8">${comment.content}</textarea>
+</div>
+<br>
+<br>
+File name: 
+<br>
+<input type ="text" id = "inputname" name = "inputname" style="background-color: #aeb1c4;" value="${fileList}" readonly>
+
+<table>
+<td>
+<input type="file" id="files" value="Attach File" name = "fileName"  multiple>
+
+</c:forEach>
+</td>
+<td>
+<button id = "clear" onclick = "clearFile()">delete file</button>
+</td>
+</table>
+<br>
+<input type="submit" value = "submit" style="   
     margin-bottom: 10px;   
     outline: none;   
     padding: 10px;   
@@ -85,57 +157,12 @@ input{
     border-right: 1px solid #312E3D;   
     border-bottom: 1px solid #56536A;   
     border-radius: 4px;   
-    background-color: #2D2D3F;   
-} 
-
-button{   
-    width: 30px;   
-    min-height: 9px;   
-    display: block;   
-    background-color: #4a77d4;   
-    border: 1px solid #3762bc;   
-    color: #fff;   
-    padding: 14px 14px;   
-    font-size: 15px;   
-    line-height: normal;   
-    border-radius: 5px;   
-    margin: 0;   
-}
-
-</style>
-
-</head>
-<body>
-<div id="comment">  
-<h1>Edit Comment</h1>
-<form class = "form" action="editcomment.do" method="post" enctype="multipart/form-data">
-<c:forEach items="${commentList}" var="comment">
-<input type ="hidden" name = "id" value="${comment.commentId}"><br>
-Comment Content: <input type ="text" name = "commentcontent" value="${comment.content}"><br>
-File name: <input type ="text" id = "inputname" name = "inputname" value="${fileList}" readonly>
-<input type="file" id="files" name = "fileName" style="display:none" multiple />
-
-<label for="files"> Select file button </label>
-
-</c:forEach>
-<input type="submit" value = "submit" style="background-color:#4a77d4; height: 36px; ">
+    background-color: #2D2D3F;  
+background-color:#4a77d4; width: 100px; height: 36px;">
 </form>
 
-<button id = "clear" onclick = "clearFile()" style="
-    background-color:#4a77d4; 
-    height: 36px;
-    width: 278px;   
-    margin-bottom: 10px;   
-    outline: none;   
-    padding: 10px;   
-    font-size: 13px;   
-    color: #fff;   
-    text-shadow:1px 1px 1px;   
-    border-top: 1px solid #312E3D;   
-    border-left: 1px solid #312E3D;   
-    border-right: 1px solid #312E3D;   
-    border-bottom: 1px solid #56536A;   
-    border-radius: 4px;">delete file</button>
+
 </div>
+
 </body>
 </html>

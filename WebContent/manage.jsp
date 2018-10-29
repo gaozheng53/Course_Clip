@@ -15,8 +15,7 @@
 
 html{   
     width: 100%;   
-    height: 100%;   
-    overflow: hidden;   
+    height: 100%;     
     font-style: sans-serif;   
 }
 
@@ -47,7 +46,7 @@ body{
 #courseTable{
     margin: auto;
     width: 90%;
-    margin-top: 120px;
+    margin-top: 150px;
     padding: 10px;
 }
 
@@ -76,7 +75,7 @@ input{
 table.redTable {
   border: 2px solid #AAAAAA;
   background-color: #CFCFE3;
-  width: 100%;
+  width: 100%;  
   text-align: center;
   border-collapse: collapse;
 }

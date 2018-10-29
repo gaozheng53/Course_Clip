@@ -10,7 +10,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
 <script>
 function addInput(){
-	$("#professor").append("<div>Name: &nbsp;<input type ='text' name = 'professorName' > Link: &nbsp;<input type ='text' name = 'professorLink'><input type='button' onclick='($(this).parent().remove())' value = 'x'><br></div>");
+	$("#professor").append("<div>Name: &nbsp;<input type ='text' name = 'professorName' > Link: &nbsp;<input type ='text' name = 'professorLink'><input type='button' onclick='($(this).parent().remove())' value = 'x' ><br></div>");
 }
 
 function validate() {
@@ -30,14 +30,11 @@ function validate() {
 }
 </script>
 
-</script>
-
 <style type="text/css">
 
 html{   
     width: 100%;   
-    height: 100%;   
-    overflow: hidden;   
+    height: 100%;     
     font-style: sans-serif;   
 }
 
@@ -49,16 +46,16 @@ body{
     background-color: #727696;   
 }
 
-#Course{   
+#course{   
     position: absolute;   
-    top: 50%;   
+    top: 30%;   
     left:50%;   
     margin: -150px 0 0 -150px;   
     width: 300px;   
     height: 300px;   
 }
 
-#Course h1{   
+#course h1{   
     color: #fff;   
     text-shadow:0 0 10px;   
     letter-spacing: 1px;   
@@ -88,8 +85,6 @@ input{
 } 
 
 </style>
-
-</script>
 </head>
 <body>
 <div id="course"> 
@@ -99,7 +94,7 @@ input{
 <input type ="hidden" name = "id">
 Name  <input type ="text" name = "name" id = "name"><br>
 Number  <input type ="text" name = "number" id = "number"><br>
-Description  <input type ="text" name = "description" id = "description"><br>
+Description  <textarea type ="text" name = "description" id = "description" cols="39" rows ="4" style="background-color: #d0d3ea;"></textarea><br>
 Track  
 	  <select name = "track" id = "track" style="background-color: #2D2D3F;color: #fff;"   >
 	  <option value ="" selected ></option>

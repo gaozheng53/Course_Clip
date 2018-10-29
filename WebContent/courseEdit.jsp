@@ -50,8 +50,7 @@ function validate() {
 
 html{   
     width: 100%;   
-    height: 100%;   
-    overflow: hidden;   
+    height: 100%;      
     font-style: sans-serif;   
 }
 
