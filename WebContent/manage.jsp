@@ -130,7 +130,9 @@ table.redTable tfoot .links a{
 <body>
 <div id="manage">
 <h1>Manage Course</h1>
-
+<form method="post" action="logout.do">
+		<input type="submit" id="logout11" value="Log out" style="background-color:#4a77d4; width: 100px; height: 36px;"/>
+	</form>
 <a href="courseAdd.jsp" style="color:#bbb; ">Add New Course</a>
 
 </div>

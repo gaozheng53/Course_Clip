@@ -181,7 +181,7 @@ table.redTable tfoot .links a{
 	<br>
 
 	<form method="post" action="logout.do">
-		<input type="submit" value="Log out" style="background-color:#4a77d4; width: 100px; height: 36px;"/>
+		<input type="submit" id="logout11" value="Log out" style="background-color:#4a77d4; width: 100px; height: 36px;"/>
 	</form>
 
 	Search course by track:

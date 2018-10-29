@@ -124,7 +124,7 @@ button{
 
   <td colspan="2" align="center">
 
-   <input type="submit"  value="Login" style="background-color:#4a77d4; height: 36px; "/>
+   <input type="submit"  id="login11" value="Login" style="background-color:#4a77d4; height: 36px; "/>
 
    <input type="button" value="Registration"  onclick=register() style="background-color:#4a77d4; height: 36px; " />
 
@@ -138,7 +138,7 @@ button{
   </div> 
   <c:if test="${requestScope.inf!=null}">
 
-      <span color="red"> ${requestScope.inf} </span>
+      <p id="loginAlert"> ${requestScope.inf} </p>
 
   </c:if>
 
