@@ -57,7 +57,7 @@
 
    <input type="submit" value="Login" id = "login"/>
 
-   <input type="button" value="Registration" onclick=register() id = "reg"/>
+   <input type="button" value="Registration" onclick=register() />
 
   </td>
 

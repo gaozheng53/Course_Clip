@@ -35,7 +35,7 @@ public void normalUserLogin() throws InterruptedException{
 	loginAgain.click();
 	Thread.sleep(2000);
 	Assert.assertEquals("Login", driver.getTitle());
-	
+
 }
 @Test
 public void adminUserLogin() throws InterruptedException{

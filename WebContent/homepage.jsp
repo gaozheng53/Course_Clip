@@ -60,7 +60,7 @@ $( document ).ready(function() {
 
 	<h1>Login Successfully</h1>
 
-	Welcome <a href="userinfo.do?id=${user.userId}" id="user${user.userId}">${username}</a>!
+	Welcome <a href="userinfo.do?id=${user.userId}">${username}</a>!
 	<br>
 	<br>
 
@@ -97,7 +97,7 @@ $( document ).ready(function() {
 
 			<tr class="tableContent">
 				<td>${course.id}</td>
-				<td><a id = "course${course.id}" href="course.do?id=${course.id}">${course.name}</a></td>
+				<td><a id="course${course.id}" href="course.do?id=${course.id}">${course.name}</a></td>
 				<td>${course.number}</td>
 				<td>${course.description}</td>
 				<td>${course.track}</td>		

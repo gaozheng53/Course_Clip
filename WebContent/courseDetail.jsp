@@ -11,10 +11,14 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
 <script type="text/javascript">
 	function validate(){
-		var content = $('contentText').val();
-		alert(content);
-		var filecontent = $('fileName').val();
-		alert(filecontent);
+		var content = $('#contentText').val();
+		var filecontent = $('#fileName').val();
+		if(content == "" && filecontent == ""){
+			alert("Please enter comment content!");
+		}
+		else{
+			$('#commentForm').submit();
+		}
 	}
 </script>
 </head>
@@ -47,10 +51,10 @@
 				<td>${comment.content}</td>
 				<td>
 				<table>
-						<c:forEach items="${comment.fileList}" var="file">
-							<a href="/OOAD-Project/downloadfile?filename=${file.fileName}"><tr>[${file.fileName}]</tr></a>
-						</c:forEach>
-					</table>
+					<c:forEach items="${comment.fileList}" var="file">
+						<a href="/OOAD-Project/downloadfile?filename=${file.fileName}"><tr>[${file.fileName}]</tr></a>
+					</c:forEach>
+				</table>
 				 </td>			 
 				<td>${comment.createTime}</td>			
 			</tr>
@@ -60,12 +64,12 @@
 	
 	<form action="subscribe.do" name = "subscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button id = "subscribe">Subscribe</button>
+		<button id="subscribe">Subscribe</button>
 	</form>
 	
 	<form action="unsubscribe.do" name = "unsubscribeForm" method = "post">
 		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button id = "unsubscribe">Unsubscribe</button>
+		<button id="unsubscribe">Unsubscribe</button>
 	</form>
 
 
@@ -74,13 +78,15 @@
 	
 	
 	<p>Add Your Comment</p>
-	<form action = "addcomment.do" name="commentForm" method="post" enctype="multipart/form-data">
+	<form action = "addcomment.do" id="commentForm" name="commentForm" method="post" enctype="multipart/form-data">
     	<textarea id="contentText" class="text" cols="70" rows ="8" name="contentText"></textarea>
     	<input type="hidden" value="${course.id}" name = "courseId">
     	<input type="hidden" value="${course.name}" name = "courseName">   	
 		<br>
 		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
-   		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
-	</form>
+		<input type="button" value="Submit" id = "postcomment" onclick = "validate()" class="submitButton">
+   	</form>
+
+
 </body>
 </html>
