@@ -33,13 +33,15 @@ public class SearchCourseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String courseName = request.getParameter("courseName");
+		String track = request.getParameter("track");
 		log(courseName);
+		log(track);
 		List<Course> courseListbyName = new ArrayList<>();
 		if(courseName.equals("test")){
 			courseListbyName = CourseDAO.displayCourses();
 		}
 		else{
-		courseListbyName = CourseDAO.searchByName(courseName);	
+		courseListbyName = CourseDAO.searchByName(courseName, track);	
 		}
 		if(courseListbyName.size() > 0){
 			response.setCharacterEncoding("UTF-8");

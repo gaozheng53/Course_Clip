@@ -493,15 +493,61 @@ public class CourseDAO {
 		}
 		return list;
 	}
-	
-
-	public static List<Course> searchByName(String courseName) {
+	public static List<Course> searchByName(String courseName, String track) {
 		List<Course> list = new LinkedList<>();
 		con = DBHelper.getConnection();
-		String sql = "select * from course where course_name LIKE ?";
+		
+		if(track.equals("ALL")) {
+			
+			String sql0 = "select * from course where course_name LIKE ?";
+			try {
+				ps = con.prepareStatement(sql0);
+				ps.setString(1, "%" + courseName + "%");
+				rs = ps.executeQuery();
+				while(rs.next()) { 
+					Course course=new Course();  
+					course.setId(rs.getLong("course_id"));  
+					course.setName(rs.getString("course_name"));  
+					course.setDescription(rs.getString("description")); 
+					course.setNumber(rs.getLong("course_number")); 
+					course.setCommentNum(rs.getLong("comment_number"));
+					course.setTrack(rs.getString("track"));  
+	                list.add(course);  
+				}
+
+				return list;
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally { 
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+					}
+					rs = null;
+				}
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+					}
+					ps = null;
+				}
+			}
+			return list;
+			
+		}else {
+		
+		String sql = "select * from course where course_name LIKE ? AND  track = ?";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, "%" + courseName + "%");
+			ps.setString(2, track);
 			rs = ps.executeQuery();
 			while(rs.next()) { 
 				Course course=new Course();  
@@ -539,28 +585,75 @@ public class CourseDAO {
 			}
 		}
 		return list;
+		}
 	}	
 	
-	public static List<Course> searchByNumber(Long courseNumber) {
+	public static List<Course> searchByNumber(Long courseNumber, String track) {
+
 		List<Course> list = new LinkedList<>();
 		con = DBHelper.getConnection();
-		String sql = "select * from course where course_number = ?";
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setLong(1, courseNumber);
-			rs = ps.executeQuery();
-			while(rs.next()) { 
-				Course course=new Course();  
-				course.setId(rs.getLong("course_id"));  
-				course.setName(rs.getString("course_name"));  
-				course.setDescription(rs.getString("description")); 
-				course.setNumber(rs.getLong("course_number")); 
-				course.setCommentNum(rs.getLong("comment_number"));
-				course.setTrack(rs.getString("track"));  
-                list.add(course);  
-			}
+		
+		if(track.equals("ALL")) {
+			
+			String sql0 = "select * from course where course_number = ?";
+			try {
+				ps = con.prepareStatement(sql0);
+				ps.setLong(1, courseNumber);
+				rs = ps.executeQuery();
+				while(rs.next()) { 
+					Course course=new Course();  
+					course.setId(rs.getLong("course_id"));  
+					course.setName(rs.getString("course_name"));  
+					course.setDescription(rs.getString("description")); 
+					course.setNumber(rs.getLong("course_number")); 
+					course.setCommentNum(rs.getLong("comment_number"));
+					course.setTrack(rs.getString("track"));  
+	                list.add(course);  
+				}
+				return list;
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally { 
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
 
+						e.printStackTrace();
+					}
+					rs = null;
+				}
+				if (ps != null) {
+					try {
+						ps.close();
+					} catch (SQLException e) {
+
+						e.printStackTrace();
+					}
+					ps = null;
+				}
+			}
 			return list;
+		}else {
+			
+			String sql = "select * from course where course_number = ? AND  track = ?";
+			try {
+				ps = con.prepareStatement(sql);
+				ps.setLong(1, courseNumber);
+				ps.setString(2, track);
+				rs = ps.executeQuery();
+				while(rs.next()) { 
+					Course course=new Course();  
+					course.setId(rs.getLong("course_id"));  
+					course.setName(rs.getString("course_name"));  
+					course.setDescription(rs.getString("description")); 
+					course.setNumber(rs.getLong("course_number")); 
+					course.setCommentNum(rs.getLong("comment_number"));
+					course.setTrack(rs.getString("track"));  
+	                list.add(course);  
+				}
+				return list;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -585,8 +678,8 @@ public class CourseDAO {
 			}
 		}
 		return list;
-	}	
-
+		}
+	}
 	
 	
 	

@@ -43,6 +43,8 @@ $( document ).ready(function() {
 	        		 "</tr>";
 	        	 }
 	        	 $("#courseTable").append(str);
+	        	 $("#courseName").val('');
+	        	 $("#courseNumber").val('');
         	 }
         	 
          },
@@ -58,10 +60,11 @@ $( document ).ready(function() {
 $( document ).ready(function() {
    $('#courseName').change(function(){
 	  var option = $(this).val();
+	  var option2 = $("#selectTrack").val();
       $.ajax({
          type : "GET",
          url : "searchCourseName.do",
-         data : {"courseName": option},
+         data : {"courseName": option, "track": option2},
          dataType:'json',
          success:function(data)
          { 
@@ -95,10 +98,11 @@ $( document ).ready(function() {
 $( document ).ready(function() {
    $('#courseNumber').change(function(){
 	  var option = $(this).val();
+	  var option2 = $("#selectTrack").val();
       $.ajax({
          type : "GET",
          url : "searchCourseNumber.do",
-         data : {"courseNumber": option},
+         data : {"courseNumber": option, "track": option2},
          dataType:'json',
          success:function(data)
          { 
@@ -272,11 +276,11 @@ table.redTable tfoot .links a{
 	<br>
 	Search course name:
 	<input type="text" name="courseName" id="courseName" placeholder="course name" style="height: 14px; width: 100px;"/>
-	<input type="submit"  id="courseName" value="Submit" style="background-color:#4a77d4; height: 36px; width: 100px; "/>
+	<input type="submit"  id="courseName1" value="Submit" style="background-color:#4a77d4; height: 36px; width: 100px; "/>
 	<br>
 	Search course number:
 	<input type="text" name="courseNumber" id="courseNumber" placeholder="course number" style="height: 14px; width: 100px;"/>
-	<input type="submit"  id="courseNumber" value="Submit" style="background-color:#4a77d4; height: 36px; width: 100px; "/>
+	<input type="submit"  id="courseNumber1" value="Submit" style="background-color:#4a77d4; height: 36px; width: 100px; "/>
 	</div>
 	
 	

@@ -33,11 +33,13 @@ public class SearchNumberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String courseNumber = request.getParameter("courseNumber");
+		String track = request.getParameter("track");
 		log(courseNumber);
+		log(track);
 		long courseNum = Long.parseLong(courseNumber);
 		List<Course> courseListbyNumber = new ArrayList<>();
 
-		courseListbyNumber = CourseDAO.searchByNumber(courseNum);	
+		courseListbyNumber = CourseDAO.searchByNumber(courseNum, track);	
 
 		if(courseListbyNumber.size() > 0){
 			response.setCharacterEncoding("UTF-8");
