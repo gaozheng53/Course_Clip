@@ -111,7 +111,7 @@ input{
 <input type ="hidden" name = "id" value="${course.id}">
 Name  <input type ="text" name = "name" value="${course.name}"><br>
 Number  <input type ="text" name = "number" value="${course.number}"><br>
-Description  <input type ="text" name = "description" value="${course.description}"><br>
+Description  <input type ="text" name = "description" value="${course.description}" id="courseDescription"><br>
 Track  <%-- <input type ="text" name = "track" value="${course.track}"> --%>
 	  <select name = "track" id = "track" style="background-color: #2D2D3F;color: #fff;"   >
 	  <option value ="" selected ></option>
@@ -131,7 +131,7 @@ Link: <input type ="text" name = "professorLink" value="${professorList.professo
 
 </c:forEach>
 
-<input type="submit" value = "submit" onclick="return validate()" style="background-color:#4a77d4; height: 36px;">
+<input type="submit" id = "submitEdit" value = "submit" onclick="return validate()" style="background-color:#4a77d4; height: 36px;">
 </form>
 </div>
 <c:if test="${requestScope.inf!=null}">

@@ -110,7 +110,7 @@ Professor
 <input type="button" onclick="addInput()" value = "Add Professor" style="background-color:#4a77d4; height: 36px;"></input><div id = "professor"></div>
 
 
-<input type="submit" value = "submit" onclick="return validate()" style="background-color:#4a77d4; height: 36px;">
+<input type="submit" id="addSubmit" value = "submit" onclick="return validate()" style="background-color:#4a77d4; height: 36px;">
 </form>
 </div>
 </div>

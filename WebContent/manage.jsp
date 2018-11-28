@@ -132,8 +132,8 @@ table.redTable tfoot .links a{
 <h1>Manage Course</h1>
 <form method="post" action="logout.do">
 		<input type="submit" id="logout11" value="Log out" style="background-color:#4a77d4; width: 100px; height: 36px;"/>
-	</form>
-<a href="courseAdd.jsp" style="color:#bbb; ">Add New Course</a>
+</form>
+<a href="courseAdd.jsp" style="color:#bbb; " id="addCourse">Add New Course</a>
 
 </div>
 <table class="redTable" id="courseTable">
@@ -150,11 +150,11 @@ table.redTable tfoot .links a{
 
 			<tr class="tableContent">
 				<td>${course.id}</td>
-				<td><a href="course.do?id=${course.id}">${course.name}</a></td>
+				<td><a href="course.do?id=${course.id}" >${course.name}</a></td>
 				<td>${course.number}</td>
 				<td>${course.description}</td>
 				<td>${course.track}</td>
-				<td><a href="editCourse.do?id=${course.id}">Edit</a>&nbsp;&nbsp;<a href="deleteCourse.do?id=${course.id}">Delete</a></td>
+				<td><a href="editCourse.do?id=${course.id}" id="edit${course.id}">Edit</a>&nbsp;&nbsp;<a href="deleteCourse.do?id=${course.id}" id="delete${course.id}">Delete</a></td>
 			</tr>
 			<br>
 		</c:forEach>

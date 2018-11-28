@@ -1,10 +1,14 @@
 // 每次测试前删掉 name = "test" - number = "1111"条，加上一条 id=30的课
+// 要有条目username=gaozheng password=111111
 package test;
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import dao.CourseDAO;
+import dao.UserDAO;
+import po.Course;
+import po.User;
 public class ManagementTest {
 	WebDriver driver;
 	@Before
@@ -21,10 +25,11 @@ public class ManagementTest {
 		WebElement password = driver.findElement(By.id("password"));
 		password.sendKeys("111111");
 		Thread.sleep(2000);
-		WebElement login = driver.findElement(By.id("login"));
-		login.submit();
+		WebElement login = driver.findElement(By.id("login11"));
+		login.click();
 		Thread.sleep(2000);
-		Assert.assertEquals("Course Management", driver.getTitle());
+		User user = UserDAO.checkLogin("gaozheng", "111111");
+		Assert.assertTrue(null!=user);
 	}
 	
 	@Test
@@ -34,20 +39,22 @@ public class ManagementTest {
 		WebElement password = driver.findElement(By.id("password"));
 		password.sendKeys("111111");
 		Thread.sleep(2000);
-		WebElement login = driver.findElement(By.id("login"));
-		login.submit();
+		WebElement login = driver.findElement(By.id("login11"));
+		login.click();
 		Thread.sleep(2000);
-		Assert.assertEquals("Course Management", driver.getTitle());
+		User user = UserDAO.checkLogin("gaozheng", "111111");
+		Assert.assertTrue(null!=user);
 		WebElement edit = driver.findElement(By.id("edit2"));
 		edit.click();
 		Thread.sleep(2000);
 		WebElement description = driver.findElement(By.id("courseDescription"));
 		description.clear();
-		description.sendKeys("modified");
+		description.sendKeys("check");
 		Thread.sleep(2000);
 		WebElement submit = driver.findElement(By.id("submitEdit"));
 		submit.click();
-		Assert.assertEquals("Course Management", driver.getTitle());
+		Course course = CourseDAO.getCourseDetail(Long.parseLong("2"));
+		Assert.assertEquals("check", course.getDescription());
 	}
 	
 	
@@ -58,21 +65,29 @@ public class ManagementTest {
 		WebElement password = driver.findElement(By.id("password"));
 		password.sendKeys("111111");
 		Thread.sleep(2000);
-		WebElement login = driver.findElement(By.id("login"));
-		login.submit();
+		WebElement login = driver.findElement(By.id("login11"));
+		login.click();
 		Thread.sleep(2000);
+		User user = UserDAO.checkLogin("gaozheng", "111111");
+		Assert.assertTrue(null!=user);
+		Thread.sleep(2000);
+		Course course = new Course();
 		Assert.assertEquals("Course Management", driver.getTitle());
 		WebElement addCourse = driver.findElement(By.id("addCourse"));
 		addCourse.click();
 		WebElement name = driver.findElement(By.id("name"));
 		name.sendKeys("test");
+		course.setName("test");
 		WebElement number = driver.findElement(By.id("number"));
 		number.sendKeys("1111");
+		course.setNumber(1111);
 		WebElement description = driver.findElement(By.id("description"));
 		description.sendKeys("content.");
+		course.setDescription("content.");
 		WebElement addSubmit = driver.findElement(By.id("addSubmit"));
 		addSubmit.click();
-		Assert.assertEquals("Course Management", driver.getTitle());
+		
+		Assert.assertEquals(false, CourseDAO.checkUniqueByName(course.getId(),course.getName()));
 	}
 	
 	@Test
@@ -82,14 +97,17 @@ public class ManagementTest {
 		WebElement password = driver.findElement(By.id("password"));
 		password.sendKeys("111111");
 		Thread.sleep(2000);
-		WebElement login = driver.findElement(By.id("login"));
-		login.submit();
+		WebElement login = driver.findElement(By.id("login11"));
+		login.click();
+		Thread.sleep(2000);
+		User user = UserDAO.checkLogin("gaozheng", "111111");
+		Assert.assertTrue(null!=user);
 		Thread.sleep(2000);
 		Assert.assertEquals("Course Management", driver.getTitle());
 		WebElement delete = driver.findElement(By.id("delete30"));
 		delete.click();
 		Thread.sleep(2000);
-		Assert.assertEquals("Course Management", driver.getTitle());
+		Assert.assertEquals(null, CourseDAO.getCourseDetail((long) 30));
 	}
 	
 	@After

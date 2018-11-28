@@ -61,6 +61,7 @@ public class UpdateServlet extends HttpServlet {
 		}
 		String[] professoresName = request.getParameterValues("professorName");
 		String[] professoresLink = request.getParameterValues("professorLink");
+		System.out.println(professoresName);
 		// 获取到前台的属性，赋值到新对象，执行update
 		Course course = new Course();
 		course.setId(Long.parseLong(request.getParameter("id")));
@@ -78,7 +79,9 @@ public class UpdateServlet extends HttpServlet {
 				if(professoresName[i] != null && professoresLink[i] != null) {
 					TeachDAO.add(course.getId(), professoresName[i], professoresLink[i]);
 				}
-			}
+			}	
+		}else {
+			TeachDAO.clear(Long.parseLong(request.getParameter("id")));
 		}
 		
 		List<Course> courseList = CourseDAO.displayCourses();
