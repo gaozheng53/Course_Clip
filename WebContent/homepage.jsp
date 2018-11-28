@@ -54,8 +54,80 @@ $( document ).ready(function() {
    });
 });
 </script>
-
+<script>
+$( document ).ready(function() {
+   $('#courseName').change(function(){
+	  var option = $(this).val();
+      $.ajax({
+         type : "GET",
+         url : "searchCourseName.do",
+         data : {"courseName": option},
+         dataType:'json',
+         success:function(data)
+         { 
+        	 $("#courseTable .tableContent").remove();
+        	 if (data.course0 != "notfound"){       	 
+	        	 var str = "";
+	        	 for(var i in data){
+	        		 str += "<tr class = 'tableContent'>" + 
+	        		 "<td>" + data[i].id + "</td>" + 
+	        		 "<td><a href='course.do?id=" + data[i].id+ "'>" + data[i].name + "</a></td>" + 
+	        		 "<td>" + data[i].number + "</td>" + 
+	        		 "<td>" + data[i].description + "</td>" + 
+	        		 "<td>" + data[i].track + "</td>" +  
+	        		 "<td>" + data[i].commentNum + "</td>" + 
+	        		 "</tr>";
+	        	 }
+	        	 $("#courseTable").append(str);
+        	 }
+        	 
+         },
+         error:function(data)
+         {      	 
+        	 $("#courseTable .tableContent").remove();
+         }
+     });
+   });
+});
 </script>
+
+<script>
+$( document ).ready(function() {
+   $('#courseNumber').change(function(){
+	  var option = $(this).val();
+      $.ajax({
+         type : "GET",
+         url : "searchCourseNumber.do",
+         data : {"courseNumber": option},
+         dataType:'json',
+         success:function(data)
+         { 
+        	 $("#courseTable .tableContent").remove();
+        	 if (data.course0 != "notfound"){       	 
+	        	 var str = "";
+	        	 for(var i in data){
+	        		 str += "<tr class = 'tableContent'>" + 
+	        		 "<td>" + data[i].id + "</td>" + 
+	        		 "<td><a href='course.do?id=" + data[i].id+ "'>" + data[i].name + "</a></td>" + 
+	        		 "<td>" + data[i].number + "</td>" + 
+	        		 "<td>" + data[i].description + "</td>" + 
+	        		 "<td>" + data[i].track + "</td>" +  
+	        		 "<td>" + data[i].commentNum + "</td>" + 
+	        		 "</tr>";
+	        	 }
+	        	 $("#courseTable").append(str);
+        	 }
+        	 
+         },
+         error:function(data)
+         {      	 
+        	 $("#courseTable .tableContent").remove();
+         }
+     });
+   });
+});
+</script>
+
 
 <style type="text/css">
 
@@ -91,7 +163,7 @@ body{
 #courseTable{
     margin: auto;
     width: 94%;
-    margin-top: 126px;
+    margin-top: 20%;
 }
 
 h1{   
@@ -176,7 +248,7 @@ table.redTable tfoot .links a{
 <div id="home"> 
 	<h1>Course Clip</h1>
 
-	Welcome <a href="userinfo.do?id=${user.userId}">${username}</a>!
+	Welcome <a href="userinfo.do?id=${user.userId}" id="user${user.userId}" >${username}</a>!
 	<br>
 	<br>
 
@@ -195,6 +267,19 @@ table.redTable tfoot .links a{
 	  <option value="TCS">Traditional Computer Science</option>
 	  
 	</select>
+	
+	<br>
+	<br>
+	Search course name:
+	<input type="text" name="courseName" id="courseName" placeholder="course name" style="height: 14px; width: 100px;"/>
+	<input type="submit"  id="courseName" value="Submit" style="background-color:#4a77d4; height: 36px; width: 100px; "/>
+	<br>
+	Search course number:
+	<input type="text" name="courseNumber" id="courseNumber" placeholder="course number" style="height: 14px; width: 100px;"/>
+	<input type="submit"  id="courseNumber" value="Submit" style="background-color:#4a77d4; height: 36px; width: 100px; "/>
+	</div>
+	
+	
 	</div>
 	
 	
@@ -214,7 +299,7 @@ table.redTable tfoot .links a{
 
 			<tr class="tableContent">
 				<td>${course.id}</td>
-				<td><a href="course.do?id=${course.id}">${course.name}</a></td>
+				<td><a id="course${course.id}" href="course.do?id=${course.id}">${course.name}</a></td>
 				<td>${course.number}</td>
 				<td>${course.description}</td>
 				<td>${course.track}</td>		
@@ -224,7 +309,7 @@ table.redTable tfoot .links a{
 		<tfoot>
 			<tr>
 				<td colspan="5">
-					<div class="links"><a href="#">&laquo;</a> <a class="active" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a></div>
+					<!--<div class="links"><a href="#">&laquo;</a> <a class="active" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a></div>-->
 				</td>
 			</tr>
 		</tfoot>

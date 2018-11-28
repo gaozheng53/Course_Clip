@@ -11,8 +11,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('input:file').change(
-		
+	$('input:file').change(		
 	    function(e){
 	    	var filenames = "";
 	        var f = e.target.files,
@@ -28,8 +27,11 @@ $(document).ready(function() {
 </script>
 <script type="text/javascript">
 	function clearFile(){
-		$('#inputname').val(null);
-		console.log($('#inputname').val());
+		$('#inputname').val('');
+	}
+	
+	function confirm(){
+		$('#edit_form').submit();
 	}
 </script>
 
@@ -115,7 +117,7 @@ left: 259px;
 <body>
 <div id="comment" style="color: #fff;">  
 <h1>Edit Comment&nbsp&nbsp&nbsp&nbsp&nbsp</h1>
-<form class = "form" action="editcomment.do" method="post" enctype="multipart/form-data">
+<form class = "form" action="editcomment.do" id = "edit_form" method="post" enctype="multipart/form-data">
 
 <c:forEach items="${commentList}" var="comment">
 
@@ -126,14 +128,14 @@ left: 259px;
 <p >Comment Content: </p>
 
 <div class="bubble"> 
-<textarea name = "commentcontent" cols="43" rows ="8">${comment.content}</textarea>
+<textarea name = "commentcontent" id="commentcontent" cols="51.7" rows ="9.7">${comment.content}</textarea>
 </div>
 <br>
 <br>
 File name: 
 <br>
 <input type ="text" id = "inputname" name = "inputname" style="background-color: #aeb1c4;" value="${fileList}" readonly>
-
+<button type= "button" id = "clearComment" onclick = "clearFile();">delete file</button>
 <table>
 <td>
 <input type="file" id="files" value="Attach File" name = "fileName"  multiple>
@@ -141,11 +143,12 @@ File name:
 </c:forEach>
 </td>
 <td>
-<button id = "clear" onclick = "clearFile()">delete file</button>
 </td>
 </table>
 <br>
-<input type="submit" value = "submit" style="   
+</form>
+
+<input type="submit" value = "submit" id = "updateForm" onclick = "confirm()" style="   
     margin-bottom: 10px;   
     outline: none;   
     padding: 10px;   
@@ -158,10 +161,7 @@ File name:
     border-bottom: 1px solid #56536A;   
     border-radius: 4px;   
     background-color: #2D2D3F;  
-background-color:#4a77d4; width: 100px; height: 36px;">
-</form>
-
-
+	background-color:#4a77d4; width: 100px; height: 36px;">
 </div>
 
 </body>

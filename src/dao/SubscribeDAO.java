@@ -85,7 +85,7 @@ public class SubscribeDAO {
 		return false; // if the record exists, then return false.
 	}
 	
-	public boolean recordExists (long courseid, long userid) {
+	public static boolean recordExists (long courseid, long userid) {
 		con = DBHelper.getConnection();// get connection
 		String sql = "select * from subscribe where course_id = ? and user_id = ?";// query
 		try {

@@ -2,6 +2,8 @@ package servlet;
 //written by Tianrou
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,33 +44,34 @@ public class SubscribeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		//fetch userid and username from HTTP Session
-		String alert = "initial message.";
-		boolean isSubscribeSuccess = false;
+		boolean subState = false;
 	    HttpSession session = request.getSession(false); 
+	    String data_courseid = "";
+	    if(request.getParameter("dataid") == null || request.getParameter("dataid").isEmpty()) {
+	    	data_courseid = "";
+	    }else {
+	    	data_courseid = request.getParameter("dataid").trim();
+	    }
 		if(session != null){
 			String username = (String) session.getAttribute("username");
 			Long userid = Long.parseLong(session.getAttribute("userid").toString());
-			Long courseid = Long.parseLong(request.getParameter("courseId"));
-			isSubscribeSuccess = SubscribeDAO.subscribe(username, userid, courseid);
-			if(isSubscribeSuccess) {
-				alert = "Subscribe Success!";
-				System.out.println(alert);
+			Long courseid = Long.parseLong(data_courseid);
+			subState = SubscribeDAO.recordExists(courseid, userid);
+			if(subState) {
+				subState = !SubscribeDAO.unsubscribe(userid, courseid);
 			}else {
-				alert = "You can not subscribe one course twice.";
-				System.out.println(alert);
+				subState = SubscribeDAO.subscribe(username, userid, courseid);
 			}
-			request.setAttribute("alertmessage", alert);
-			//redirect to course detail page.
-			String url = "course.do?id=" + courseid;
-//			response.setContentType("text/html; charset=gb2312");
-//			response.sendRedirect(url).forward(request, response);
-			request.getRequestDispatcher(url).forward(request, response);
-			return;
+			JSONObject data = new JSONObject();
+			data.put("state", subState);
+			PrintWriter out = response.getWriter();	
+			out.print(data);
+			out.flush();		
+			out.close();
 		}else{
-			request.setAttribute("inf", "You need to log in before post your comment!");
+			request.setAttribute("inf", "You need to log in first!");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
-		//request.setAttribute("alertmessage", alert);
 	}
 
 }

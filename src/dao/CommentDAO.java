@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -316,4 +317,160 @@ public class CommentDAO {
 		
 	}
 	
+	public static ArrayList<String> TestPostCommentFile() {
+		con = DBHelper.getConnection();
+		String sql = "select * from comment as c, file as f where c.comment_id = (select MAX(comment.comment_id) FROM comment) and c.comment_id = f.comment_id";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			ArrayList<String> result = new ArrayList<>();
+			while(rs.next()){
+				result.add(rs.getString("content"));
+				result.add(rs.getString("name"));
+			}
+					
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return null;
+		
+	}
+	
+	public static String TestPostComment() {
+		con = DBHelper.getConnection();
+		String sql = "select * from comment as c where c.comment_id = (select MAX(comment.comment_id) FROM comment)";
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			String result = "";
+			while(rs.next()){
+				result = rs.getString("content");
+			}
+					
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return null;
+		
+	}
+	
+	
+	public static String TestEditComment(int id) {
+		con = DBHelper.getConnection();
+		String sql = "select * from comment where comment_id = ?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			String result = "";
+			while(rs.next()){
+				result = rs.getString("content");				
+			}
+					
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return null;
+		
+	}
+	
+	
+	public static String TestEditFile(int id) {
+		con = DBHelper.getConnection();
+		String sql = "SELECT * FROM file where comment_id in (?)";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			String result = "";
+			while(rs.next()){
+				result = rs.getString("name");				
+			}
+					
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				ps = null;
+			}
+		}
+		return null;
+		
+	}
 }

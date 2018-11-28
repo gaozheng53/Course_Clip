@@ -176,7 +176,7 @@ table.redTable tfoot .links a{
 					</table>
 				</td>
 				<td>${comment.createTime}</td>
-				<td><a href="/OOAD-Project/EditComment?comment=${comment.commentId}"> Edit</a> | <a href="/OOAD-Project/DeleteComment?comment=${comment.commentId}">Delete</a></td>
+				<td><a href="/OOAD-Project/EditComment?comment=${comment.commentId}" id="edit${comment.commentId}"> Edit</a> | <a href="/OOAD-Project/DeleteComment?comment=${comment.commentId}" id="delete${comment.commentId }">Delete</a></td>
 			</tr>
 		</c:forEach>
 </table>

@@ -7,7 +7,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Course Detail</title>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
+<script type="text/javascript">
+	function postComment(){
+		var comment = $('#contentText').val();
+		var file = $('#fileName').val();
+		
+		if(comment == "" && file == ""){
+			alert("Please enter comment content or attach file!");
+		}
+		else{
+			$('#commentForm').submit();
+		}		
+	}
+	
+	function sub(){
+		var courseid = $('#formCourseId').val();
+		var data = {'dataid':courseid};
+		//alert(courseid);
+		$.ajax({
+			type : "POST",
+			url: "subscribe.do",
+			data : data,
+			dataType:'json',
+			success:function(data)
+	         { 
+				//alert("回传成功");
+	        	 if(data.state){
+	        		 alert("Subscribe Successful!");
+	        		 $('#stateButton').val("Unsubscribe");
+	        	 }else{
+	        		 alert("Unsubscribe Successful!");
+	        		 $('#stateButton').val("Subscribe");
+	        	 }
+	         },
+	         error:function(data)
+	         {      	 
+	        	 alert("回传失败");
+	         }
+		});
+	}
+</script>
 
 <style type="text/css">
 
@@ -196,36 +236,27 @@ left: 399px;
 	
 <table>
 	<td>
-	
-	<form action="subscribe.do" name = "subscribeForm" method = "post">
-		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button>Subscribe</button>
-	</form>
-	</td>
-	<td>
-	<form action="unsubscribe.do" name = "unsubscribeForm" method = "post">
-		<input type = "hidden" value = "${course.id}" name = "courseId">
-		<button>Unsubscribe</button>
+	<form id = "subscribeForm">
+		<input type = "hidden" value = "${course.id}" id = "formCourseId">
+		<input type="button" value="${subState}" id = "stateButton" onclick="sub()"/>
 	</form>
 	</td>
 </table>
 
-	<p id = "alertm">${alertmessage}</p>
-	<p id = "unalertm">${uns_alertmessage}</p>
 	
 	<div id = "comment" style="color:white">
 	<p>Add Your Comment</p>
-	<form action = "addcomment.do" name="commentForm" method="post" enctype="multipart/form-data">
+	<form action = "addcomment.do" name="commentForm" id = "commentForm" method="post" enctype="multipart/form-data">
     	<div class="bubble">   
-    	<textarea id="contentText" class="text" cols="68" rows ="8" name="contentText"></textarea>
+    	<textarea id="contentText" class="text" cols="81" rows ="9" name="contentText"></textarea>
     	<input type="hidden" value="${course.id}" name = "courseId">
     	<input type="hidden" value="${course.name}" name = "courseName">
     	</div>
 		<br>
-		<input type="file" value="Attach File" name = "fileName" multiple>
+		<input type="file" value="Attach File" name = "fileName" id = "fileName" multiple>
    		<br>
    		<br>
-   		<input type="submit" value="Submit" class="submitButton" style="   
+   		<input type="button" value="Submit" id = "postcomment" class="submitButton" onclick="postComment();" style="   
     margin-bottom: 10px;   
     outline: none;      
     font-size: 13px;   
